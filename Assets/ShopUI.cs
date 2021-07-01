@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +16,7 @@ public class ShopUI : MonoBehaviour
         shopItems.ForEach(x => Destroy(x.gameObject));
         shopItems.Clear();
 
-        var items = ShopItemData.instance.item;
+        var items = ShopItemData.instance.items;
         var itemParent = itemBase.transform.parent;
         itemBase.gameObject.SetActive(true);
         foreach (var item in items)
@@ -26,11 +26,5 @@ public class ShopUI : MonoBehaviour
             shopItems.Add(newShopItem);
         }
         itemBase.gameObject.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

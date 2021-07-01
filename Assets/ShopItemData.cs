@@ -1,3 +1,4 @@
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,15 +24,29 @@ public class ItemInfo
     public int sellPrice;
     public string description;
     public int maxStackCount;
-    // ¾ÆÀÌÅÛ µî±Ş(µî±Şº°·Î ´Ù¸¥ ¹è°æÀÌ³ª Å×µÎ¸®)
+    // ì•„ì´í…œ ë“±ê¸‰(ë“±ê¸‰ë³„ë¡œ ë‹¤ë¥¸ ë°°ê²½ì´ë‚˜ í…Œë‘ë¦¬)
 }
 
 public class ShopItemData : MonoBehaviour
 {
     public static ShopItemData instance;
+
+    internal static ItemInfo GetItem(int id)
+    {
+        instance.itemMap.TryGetValue(id, out ItemInfo result);
+        return result;
+    }
+
     private void Awake()
     {
         instance = this;
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            var item = items[i];
+            itemMap[item.ID] = item;
+        }
     }
-    public List<ItemInfo> item;
+    public List<ItemInfo> items;
+    public Dictionary<int, ItemInfo> itemMap = new Dictionary<int, ItemInfo>();
 }

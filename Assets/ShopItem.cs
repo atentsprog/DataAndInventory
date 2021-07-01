@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +11,7 @@ public class ShopItem : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        print("click: " + eventData);
+        //print("click: " + eventData);
         ItemInfoUI.instance.ShowShopItemInfo(itemInfo);
     }
 
@@ -20,6 +20,5 @@ public class ShopItem : MonoBehaviour, IPointerClickHandler
         itemInfo = item;
         Image image = transform.Find("Icon").GetComponent<Image>();
         image.sprite = itemInfo.icon;
-         //itemInfo.iconName
     }
 }
