@@ -56,7 +56,10 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\DragMe.cs" />
+    <Compile Include="Assets\UserData.cs" />
     <Compile Include="Assets\UISample\UISampleTest.cs" />
+    <Compile Include="Assets\SkillSlotItem.cs" />
     <Compile Include="Assets\Scripts\Common\UIStackManager.cs" />
     <Compile Include="Assets\ShopItemData.cs" />
     <Compile Include="Assets\UISample\QuestUISample.cs" />
@@ -70,6 +73,7 @@
     <Compile Include="Assets\Scripts\Common\BaseUI.cs" />
     <Compile Include="Assets\ItemInfoUI.cs" />
     <Compile Include="Assets\Scripts\Common\ListItemMonobehaviour.cs" />
+    <Compile Include="Assets\UserMoneyUI.cs" />
     <Compile Include="Assets\Scripts\Common\ToastMessage.cs" />
     <Compile Include="Assets\ShopItem.cs" />
     <Compile Include="Assets\InventoryUI.cs" />
@@ -77,17 +81,13 @@
     <Compile Include="Assets\Scripts\Common\GODestroyer.cs" />
     <Compile Include="Assets\Scripts\Common\EditorOption.cs" />
     <Compile Include="Assets\Scripts\Common\SpawnPrefab.cs" />
+    <Compile Include="Assets\TradeManager.cs" />
     <Compile Include="Assets\Scripts\Common\GORotate.cs" />
     <Compile Include="Assets\ShopUI.cs" />
     <Compile Include="Assets\Scripts\Common\EditorButtonHelper.cs" />
     <Compile Include="Assets\Scripts\Common\ChangeTextureOffset.cs" />
     <Compile Include="Assets\InventoryItem.cs" />
     <Compile Include="Assets\Scripts\Common\Util.cs" />
-    <Compile Include="Assets\UserData.cs" />
-    <Compile Include="Assets\TradeManager.cs" />
-    <Compile Include="Assets\UserMoneyUI.cs" />
-    <Compile Include="Assets\SkillSlotItem.cs" />
-    <Compile Include="Assets\DragMe.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

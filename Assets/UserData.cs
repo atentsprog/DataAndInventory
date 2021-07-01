@@ -80,7 +80,16 @@ public class UserData : MonoBehaviour
             item.getDate = PlayerPrefs.GetString("getDate" + i);
             userItems.Add(item);
         }
+
+        RefreshUI();
     }
+
+    private static void RefreshUI()
+    {
+        UserMoneyUI.instance.Refresh();
+        InventoryUI.instance.Refresh();
+    }
+
     public static void SetGold(int gold)
     {
         PlayerPrefs.SetInt("gold", gold);
