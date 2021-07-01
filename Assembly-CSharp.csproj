@@ -72,6 +72,7 @@
     <Compile Include="Assets\ItemInfoUI.cs" />
     <Compile Include="Assets\Scripts\Common\ListItemMonobehaviour.cs" />
     <Compile Include="Assets\Scripts\Common\ToastMessage.cs" />
+    <Compile Include="Assets\InventoryUI.cs" />
     <Compile Include="Assets\Scripts\Common\PlayerPrefs\SaveString.cs" />
     <Compile Include="Assets\Scripts\Common\GODestroyer.cs" />
     <Compile Include="Assets\Scripts\Common\EditorOption.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Assets\ShopUI.cs" />
     <Compile Include="Assets\Scripts\Common\EditorButtonHelper.cs" />
     <Compile Include="Assets\Scripts\Common\ChangeTextureOffset.cs" />
+    <Compile Include="Assets\InventoryItem.cs" />
     <Compile Include="Assets\Scripts\Common\Util.cs" />
     <Compile Include="Assets\ShopItem.cs" />
     <Compile Include="Assets\MoneyUI.cs" />

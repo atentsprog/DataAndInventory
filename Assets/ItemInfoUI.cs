@@ -10,7 +10,6 @@ public class ItemInfoUI : MonoBehaviour
     Text itemName;
     Image icon;
     Text description;
-    Button button;
 
     private void Awake()
     {
@@ -45,7 +44,6 @@ public class ItemInfoUI : MonoBehaviour
         itemName = transform.Find("Name").GetComponent<Text>();
         icon = transform.Find("Icon").GetComponent<Image>();
         description = transform.Find("Description").GetComponent<Text>();
-        button = transform.Find("Button").GetComponent<Button>();
     }
 
     private void ItemSell()
@@ -55,5 +53,14 @@ public class ItemInfoUI : MonoBehaviour
     private void ItemBuy()
     {
         print("ItemBuy");
+
+        UserData.instance.gold -= shopItemInfo.buyPrice;
+        var newItem = new InventoryItemInfo();
+        newItem.itemID = shopItemInfo.itemID;
+        newItem.count = 1;
+        newItem.getDate = DateTime.Now.ToString();
+        UserData.instance.inventoryItems.Add(newItem);
+        InventoryUI.instance.RefreshUI();
+        //shopItemInfo
     }
 }

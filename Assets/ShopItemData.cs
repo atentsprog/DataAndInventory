@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,8 +13,9 @@ public enum ItemType
 [System.Serializable]
 public class ShopItemInfo
 {
-    // ÀÌ¸§, ¾ÆÀÌÄÜ, °¡°İ, 
+    // ì´ë¦„, ì•„ì´ì½˜, ê°€ê²©, 
     public string name;
+    public int itemID;
     public Sprite icon;
     public string description;
     public ItemType type;

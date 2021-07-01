@@ -12,7 +12,7 @@ public class MoneyUI : MonoBehaviour
     {
         goldText = transform.Find("Gold/Text").GetComponent<Text>();
         diaText = transform.Find("Dia/Text").GetComponent<Text>();
-        goldText.text = "12";
-        diaText.text = "23";
+        goldText.text = UserData.instance.gold.ToString();
+        diaText.text = UserData.instance.dia.ToString();
     }
 }
