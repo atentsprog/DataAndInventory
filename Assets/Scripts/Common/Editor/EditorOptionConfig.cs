@@ -13,12 +13,27 @@ public class EditorOptionConfig : EditorWindow
     }
 
     Vector2 mPos = Vector2.zero;
+    string goldText;
     void OnGUI()
     {
         mPos = GUILayout.BeginScrollView(mPos);
-        if(GUILayout.Button("테스트 버튼"))
+        GUILayout.BeginHorizontal();
+        { 
+            goldText = GUILayout.TextField(goldText);
+            if (GUILayout.Button("Set Gold"))
+            {
+                int gold = int.Parse(goldText);
+                UserData.SetGold(gold);
+            }
+        }
+        GUILayout.EndHorizontal();
+
+        if (GUILayout.Button("PlayerPrefs.DeleteAll"))
         {
-            Debug.Log("테스트 버튼 누름");
+            if (EditorUtility.DisplayDialog("경고", "정말로 다 지우시겠습니까?", "네, 다 지울게요"))
+            {
+                PlayerPrefs.DeleteAll();
+            }
         }
 
         for (OptionType i = OptionType.StartIndex + 1; i < OptionType.LastIndex; i++)

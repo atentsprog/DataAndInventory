@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class MoneyUI : MonoBehaviour
 {
+    public static MoneyUI instance;
+    private void Awake()
+    {
+        instance = this;
+    }
     Text goldText;
     Text diaText;
 
@@ -12,7 +17,12 @@ public class MoneyUI : MonoBehaviour
     {
         goldText = transform.Find("Gold/Text").GetComponent<Text>();
         diaText = transform.Find("Dia/Text").GetComponent<Text>();
-        goldText.text = UserData.instance.gold.ToString();
+        RefreshUI();
+    }
+
+    public void RefreshUI()
+    {
+        goldText.text = UserData.instance.Gold.ToString();
         diaText.text = UserData.instance.dia.ToString();
     }
 }

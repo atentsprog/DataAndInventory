@@ -85,6 +85,7 @@
     <Compile Include="Assets\Scripts\Common\Util.cs" />
     <Compile Include="Assets\ShopItem.cs" />
     <Compile Include="Assets\MoneyUI.cs" />
+    <Compile Include="Assets\UserGoldUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

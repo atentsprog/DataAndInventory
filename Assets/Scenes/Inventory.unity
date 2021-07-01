@@ -206,6 +206,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &694186058 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 694186058, guid: 73f73347c4bb90d449656b7672c64ed8, type: 3}
+  m_PrefabInstance: {fileID: 4895438295350572927}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &694186059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694186058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2ec58ae875825144ba509aa037ff65f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1305959049
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,7 +319,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryItems: []
-  gold: 0
   dia: 0
 --- !u!4 &1813957685
 Transform:

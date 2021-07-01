@@ -54,13 +54,14 @@ public class ItemInfoUI : MonoBehaviour
     {
         print("ItemBuy");
 
-        UserData.instance.gold -= shopItemInfo.buyPrice;
+        UserData.instance.Gold -= shopItemInfo.buyPrice;
         var newItem = new InventoryItemInfo();
         newItem.itemID = shopItemInfo.itemID;
         newItem.count = 1;
         newItem.getDate = DateTime.Now.ToString();
         UserData.instance.inventoryItems.Add(newItem);
         InventoryUI.instance.RefreshUI();
+        //MoneyUI.instance.RefreshUI();
         //shopItemInfo
     }
 }
