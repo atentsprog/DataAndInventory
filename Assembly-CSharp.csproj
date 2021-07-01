@@ -58,6 +58,10 @@
   <ItemGroup>
     <Compile Include="Assets\ShopItemData.cs" />
     <Compile Include="Assets\InventoryItem.cs" />
+    <Compile Include="Assets\ShopUI.cs" />
+    <Compile Include="Assets\InventoryUI.cs" />
+    <Compile Include="Assets\ItemInfoUI.cs" />
+    <Compile Include="Assets\ShopItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
