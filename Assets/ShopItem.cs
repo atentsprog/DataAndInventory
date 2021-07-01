@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ShopItemUI : MonoBehaviour, IPointerClickHandler
+public class ShopItem : MonoBehaviour, IPointerClickHandler
 {
     public ShopItemInfo shopItemInfo;
     public void OnPointerClick(PointerEventData eventData)

@@ -1,17 +1,17 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ShopUI : MonoBehaviour
 {
-    public ShopItemUI itemBase;
+    public ShopItem itemBase;
     void Start()
     {
         var items = ShopItemData.instance.shopItems;
         itemBase.gameObject.SetActive(true);
         foreach (ShopItemInfo item in items)
         {
-            var newItem = Instantiate(itemBase, itemBase.transform.parent); // <- Á¤»ó
+            var newItem = Instantiate(itemBase, itemBase.transform.parent); // <- ì •ìƒ
             newItem.Init(item);
         }
         itemBase.gameObject.SetActive(false);
