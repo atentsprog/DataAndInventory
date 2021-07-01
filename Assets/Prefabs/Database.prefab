@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1310566198229131477
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4511274351983837581}
+  - component: {fileID: 34184698514126943}
+  m_Layer: 0
+  m_Name: Database
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4511274351983837581
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310566198229131477}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 145.8604, y: 462.3593, z: -22.810154}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &34184698514126943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310566198229131477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff8eb97bf6aadf444a3765c3d4179f86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shopItems:
+  - name: "\uC0AC\uACFC"
+    icon: {fileID: 21300000, guid: 5d9ba4e7d0964044ea54abe409d81dfd, type: 3}
+    description: "\uC0AC\uACFC\uB294 \uB9DB\uC788\uB2E4"
+    type: 2
+    buyPrice: 110
+    sellPrice: 100
+  - name: "\uC0C1\uC758"
+    icon: {fileID: 21300000, guid: 2f1eaeeaad36ee5469eff7ff158f37ba, type: 3}
+    description: "\uD754\uD55C \uC637"
+    type: 1
+    buyPrice: 100
+    sellPrice: 10
+  - name: "\uB3C4\uB07C"
+    icon: {fileID: 21300000, guid: 172774604c1bee84185a69041576525b, type: 3}
+    description: "\uD754\uD55C \uC637"
+    type: 0
+    buyPrice: 100
+    sellPrice: 10
+  - name: "\uBCA8\uD2B8"
+    icon: {fileID: 21300000, guid: da09804303305f542a686824630e7269, type: 3}
+    description: "\uD754\uD55C \uC637"
+    type: 1
+    buyPrice: 100
+    sellPrice: 10
+  - name: "\uCC45"
+    icon: {fileID: 21300000, guid: ae496f5dad56ea645b72d374a0376368, type: 3}
+    description: "\uADF8\uB9BC\uC73C\uB85C \uBC30\uC6B0\uB294 C#"
+    type: 3
+    buyPrice: 16000
+    sellPrice: 1000
