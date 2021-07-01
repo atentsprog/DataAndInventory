@@ -86,6 +86,8 @@
     <Compile Include="Assets\UserData.cs" />
     <Compile Include="Assets\TradeManager.cs" />
     <Compile Include="Assets\UserMoneyUI.cs" />
+    <Compile Include="Assets\SkillSlotItem.cs" />
+    <Compile Include="Assets\DragMe.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

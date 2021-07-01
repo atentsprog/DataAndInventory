@@ -9,6 +9,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
 {
     HaveItemInfo haveItemInfo;
 
+
     public void OnPointerClick(PointerEventData eventData)
     {
         //print("click: " + eventData);
