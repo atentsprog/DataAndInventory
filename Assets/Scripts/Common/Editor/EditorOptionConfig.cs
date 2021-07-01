@@ -13,13 +13,19 @@ public class EditorOptionConfig : EditorWindow
     }
 
     Vector2 mPos = Vector2.zero;
+    private string goldText;
+
     void OnGUI()
     {
         mPos = GUILayout.BeginScrollView(mPos);
-        if(GUILayout.Button("테스트 버튼"))
+
+        GUILayout.BeginHorizontal();
+        goldText = GUILayout.TextField(goldText);
+        if (GUILayout.Button("Set Gold"))
         {
-            Debug.Log("테스트 버튼 누름");
+            UserData.SetGold(int.Parse(goldText));
         }
+        GUILayout.EndHorizontal();
 
         for (OptionType i = OptionType.StartIndex + 1; i < OptionType.LastIndex; i++)
         {

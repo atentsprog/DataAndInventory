@@ -81,6 +81,16 @@ public class UserData : MonoBehaviour
             userItems.Add(item);
         }
     }
+    public static void SetGold(int gold)
+    {
+        PlayerPrefs.SetInt("gold", gold);
+        PlayerPrefs.Save();
+        if (instance)
+        {
+            instance.gold = gold;
+            UserMoneyUI.instance.Refresh();
+        }
+    }
 
     internal void DeleteItem(HaveItemInfo itemInfo)
     {

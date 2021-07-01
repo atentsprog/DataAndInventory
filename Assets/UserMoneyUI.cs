@@ -20,6 +20,7 @@ public class UserMoneyUI : MonoBehaviour
     {
         diaText = transform.Find("Dia/Text").GetComponent<Text>();
         goldText = transform.Find("Gold/Text").GetComponent<Text>();
+        Refresh();
     }
 
     public void Refresh()
