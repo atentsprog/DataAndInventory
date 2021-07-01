@@ -2,14 +2,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
-
+using System;
 
 public class EditorOptionConfig : EditorWindow
 {
     [MenuItem("Tools/Option")]
     static void Init()
     {
-        GetWindow(typeof(EditorOptionConfig));
+        EditorOptionConfig editorOptionConfig = (EditorOptionConfig)GetWindow(typeof(EditorOptionConfig));
+        editorOptionConfig.Load();
+    }
+
+    private void Load()
+    {
+        GetUserGold();
+    }
+
+    private void GetUserGold()
+    {
+        goldText = PlayerPrefs.GetInt("gold").ToString();
     }
 
     Vector2 mPos = Vector2.zero;
@@ -24,6 +35,10 @@ public class EditorOptionConfig : EditorWindow
         if (GUILayout.Button("Set Gold"))
         {
             UserData.SetGold(int.Parse(goldText));
+        }
+        if (GUILayout.Button("↻"))
+        {
+            GetUserGold();
         }
         GUILayout.EndHorizontal();
 
