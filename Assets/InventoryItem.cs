@@ -15,8 +15,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
             //inventoryItemInfo 아이템을 장착하자. -> 장착정보.
-            //ShopItemInfo shopItemInfo = ShopItemData.instance.shopItems.Find(x => x.itemID == inventoryItemInfo.itemID);
-            ShopItemInfo shopItemInfo = inventoryItemInfo.GetShopItemInfo();
+            EquipUI.instance.SetEquipItem(inventoryItemInfo);
         }
     }
 

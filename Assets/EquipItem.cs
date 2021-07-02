@@ -1,18 +1,17 @@
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EquipItem : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    internal void SetItem(InventoryItemInfo inventoryItemInfo)
     {
-        
-    }
+        // 아이콘 설정.
+        ShopItemInfo shopItemInfo = inventoryItemInfo.GetShopItemInfo();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Image iamge = transform.Find("Image").GetComponent<Image>();
+        iamge.sprite = shopItemInfo.icon;
     }
 }

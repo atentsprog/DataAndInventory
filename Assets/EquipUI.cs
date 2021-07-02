@@ -1,18 +1,31 @@
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EquipUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public EquipItem weaponEquipItem;
+    public EquipItem armorEquipItem;
+    public EquipItem potionEquipItem;
+
+    public static EquipUI instance;
+    private void Awake()
     {
-        
+        instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    internal void SetEquipItem(InventoryItemInfo inventoryItemInfo)
     {
-        
+        ShopItemInfo shopItemInfo = inventoryItemInfo.GetShopItemInfo();
+
+        switch (shopItemInfo.type)
+        {
+            case ItemType.Weapon:
+                weaponEquipItem.SetItem(inventoryItemInfo); 
+                break;
+            case ItemType.Armor: armorEquipItem.SetItem(inventoryItemInfo); break;
+            case ItemType.Potion: potionEquipItem.SetItem(inventoryItemInfo); break;
+        }
     }
 }
