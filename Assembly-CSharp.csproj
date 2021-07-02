@@ -90,8 +90,79 @@
     <Compile Include="Assets\MoneyUI.cs" />
     <Compile Include="Assets\UserGoldUI.cs" />
     <Compile Include="Assets\ShopItem.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Unity\Type\Vector2Type.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\Impl\DoubleListType.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\Impl\LongType.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Http\Protocol\CopyExampleResult.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Unity\CodeGeneratorUnityEngine.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\IType.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\IO\Parser\ExcelReader.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Unity\Type\Vector3Type.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\IO\Generator\CodeGenerator.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\Impl\ShortType.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\IO\Parser\IParser.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\Impl\LongListType.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Unity\UnityGoogleSheet.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\IO\FileWriter\IFIleWriter.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\Impl\IntType.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Unity\UnityFileReader.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\Impl\DoubleType.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\IO\Generator\GenerateSetting.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Http\Protocol\CreateDeaultTableResult.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\Impl\UShortType.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\Impl\FloatType.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Unity\UnityGSParser.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\IO\Parser\GSParser.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Unity\IWebReqeuster.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\WriteUtil.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Exception\RequireTypeAttributeException.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Http\Protocol\GetTableResult.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\ITable.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\IO\FileReader\IFileReader.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\ZG\ZeroGoogleSheet.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\Impl\ByteType.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\Impl\CharType.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Unity\ZGSettingObject.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\Impl\CharListType.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\ReadUtil.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Attribute\TableStructAttribute.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\Impl\StringType.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Reflection\Utility.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\Impl\ULongType.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\Impl\StringListType.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\EnumType.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Http\Protocol\GetFolderInfo.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\IO\FileWriter\FileWriter.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\IO\Generator\DataGenerator.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\ZG\GoogleDriveWebRequester.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\Attribute\UGSAttribute.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\IO\Generator\EnumGenerator.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\Impl\DecimalType.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Unity\UnityEditorWebRequest.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Http\Protocol\WriteObjectResult.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\Impl\IntListType.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\IO\FileReader\FileReader.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\Impl\IntTupleX2.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Unity\UnityPlayerWebRequest.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Http\Protocol\ReceiveDatas.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\TypeMap.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\ZG\SheetInfo.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Unity\Type\QuaternionType.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Unity\UnityFileWriter.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Unity\ZGSetting.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\IO\Generator\ICodeGenerator.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Http\Protocol\EWriteResult.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Http\Protocol\EReceivedResult.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\Impl\UIntType.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\Attribute\TypeAttribute.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\Impl\FloatListType.cs" />
+    <Compile Include="Assets\ZG\ZG.Core\Type\Impl\ByteArrayType.cs" />
+    <Compile Include="Assets\ZGS\Scripts\ZGS.Struct\MyGame1.ItemData.cs" />
   </ItemGroup>
   <ItemGroup>
+     <None Include="Assets\ZG\JsonDotNet\link.xml" />
+     <None Include="Assets\ZG\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.dll" />
+     <None Include="Assets\ZG\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.XML" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.5f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
@@ -313,6 +384,9 @@
     </Reference>
     <Reference Include="UnityEditor.UnityConnectModule">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.5f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Assets\ZG\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.5f1\Editor\Data\NetStandard\ref\2.0.0\netstandard.dll</HintPath>
