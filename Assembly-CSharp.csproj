@@ -83,6 +83,8 @@
     <Compile Include="Assets\Scripts\Common\ChangeTextureOffset.cs" />
     <Compile Include="Assets\InventoryItem.cs" />
     <Compile Include="Assets\Scripts\Common\Util.cs" />
+    <Compile Include="Assets\EquipItem.cs" />
+    <Compile Include="Assets\EquipUI.cs" />
     <Compile Include="Assets\MoneyUI.cs" />
     <Compile Include="Assets\UserGoldUI.cs" />
     <Compile Include="Assets\ShopItem.cs" />
