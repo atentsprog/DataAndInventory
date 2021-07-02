@@ -16,9 +16,10 @@ public class ItemInfoUI : MonoBehaviour
         instance = this;
     }
     public ShopItemInfo shopItemInfo;
-
+    public InventoryItemInfo inventoryItemInfo;
     internal void ShowInventoryItem(InventoryItemInfo inventoryItemInfo)
     {
+        this.inventoryItemInfo = inventoryItemInfo;
         shopBtn.SetActive(false);
         inventoryBtn.SetActive(true);
 
@@ -26,7 +27,15 @@ public class ItemInfoUI : MonoBehaviour
             .Find(x => x.itemID == inventoryItemInfo.itemID);
         SetItemInfo(shopItemInfo);
     }
+    private void ItemSell()
+    {
+        print("ItemSell");
 
+        UserData.instance.Gold += shopItemInfo.sellPrice;
+
+        UserData.instance.inventoryItems.Remove(inventoryItemInfo);
+        InventoryUI.instance.RefreshUI();
+    }
     internal void ShowShopItem(ShopItemInfo shopItemInfo)
     {
         shopBtn.SetActive(true);
@@ -64,10 +73,6 @@ public class ItemInfoUI : MonoBehaviour
         description = transform.Find("Description").GetComponent<Text>();
     }
 
-    private void ItemSell()
-    {
-        print("ItemSell");
-    }
     private void ItemBuy()
     {
         print("ItemBuy");
