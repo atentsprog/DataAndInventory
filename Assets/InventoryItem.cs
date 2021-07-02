@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class InventoryItem : MonoBehaviour, IPointerClickHandler
 {
-    HaveItemInfo haveItemInfo;
+    public HaveItemInfo haveItemInfo;
 
 
     public void OnPointerClick(PointerEventData eventData)
