@@ -16,9 +16,27 @@ public class ItemInfoUI : MonoBehaviour
         instance = this;
     }
     public ShopItemInfo shopItemInfo;
+
+    internal void ShowInventoryItem(InventoryItemInfo inventoryItemInfo)
+    {
+        shopBtn.SetActive(false);
+        inventoryBtn.SetActive(true);
+
+        var shopItemInfo = ShopItemData.instance.shopItems
+            .Find(x => x.itemID == inventoryItemInfo.itemID);
+        SetItemInfo(shopItemInfo);
+    }
+
     internal void ShowShopItem(ShopItemInfo shopItemInfo)
     {
         shopBtn.SetActive(true);
+        inventoryBtn.SetActive(false);
+
+        SetItemInfo(shopItemInfo);
+    }
+
+    private void SetItemInfo(ShopItemInfo shopItemInfo)
+    {
         this.shopItemInfo = shopItemInfo;
         itemName.text = shopItemInfo.name;
         icon.sprite = shopItemInfo.icon;
