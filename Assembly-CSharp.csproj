@@ -8,8 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{306C515B-DBE1-BC80-F27E-BFBC1FD698B8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -57,8 +56,10 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\DragMe.cs" />
     <Compile Include="Assets\UserData.cs" />
     <Compile Include="Assets\UISample\UISampleTest.cs" />
+    <Compile Include="Assets\SkillSlotItem.cs" />
     <Compile Include="Assets\Scripts\Common\UIStackManager.cs" />
     <Compile Include="Assets\ShopItemData.cs" />
     <Compile Include="Assets\UISample\QuestUISample.cs" />
@@ -89,7 +90,6 @@
     <Compile Include="Assets\MoneyUI.cs" />
     <Compile Include="Assets\UserGoldUI.cs" />
     <Compile Include="Assets\ShopItem.cs" />
-    <Compile Include="Class1.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -688,7 +688,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
