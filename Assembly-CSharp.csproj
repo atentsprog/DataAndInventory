@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{7D1C1B57-C00A-6749-5702-DC8387784C18}</ProjectGuid>
+    <ProjectGuid>{306C515B-DBE1-BC80-F27E-BFBC1FD698B8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -83,9 +83,9 @@
     <Compile Include="Assets\Scripts\Common\ChangeTextureOffset.cs" />
     <Compile Include="Assets\InventoryItem.cs" />
     <Compile Include="Assets\Scripts\Common\Util.cs" />
-    <Compile Include="Assets\ShopItem.cs" />
     <Compile Include="Assets\MoneyUI.cs" />
     <Compile Include="Assets\UserGoldUI.cs" />
+    <Compile Include="Assets\ShopItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

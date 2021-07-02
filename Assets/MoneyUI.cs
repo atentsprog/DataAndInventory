@@ -9,14 +9,14 @@ public class MoneyUI : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        goldText = transform.Find("Gold/Text").GetComponent<Text>();
+        diaText = transform.Find("Dia/Text").GetComponent<Text>();
     }
     Text goldText;
     Text diaText;
 
     void Start()
     {
-        goldText = transform.Find("Gold/Text").GetComponent<Text>();
-        diaText = transform.Find("Dia/Text").GetComponent<Text>();
         RefreshUI();
     }
 
