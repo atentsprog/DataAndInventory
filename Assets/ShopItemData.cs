@@ -5,11 +5,13 @@ using UnityEngine;
 
 public enum ItemType
 {
+    StartIndex,
     Weapon,
     Armor,
     Acc,
     Potion,
-    Etc
+    Etc,
+    EndIndex,
 }
 
 [System.Serializable]
@@ -31,6 +33,11 @@ public class ShopItemData : MonoBehaviour
 {
     public static ShopItemData instance;
 
+    internal static ItemInfo GetItem(HaveItemInfo haveItemInfo)
+    {
+        return GetItem(haveItemInfo.id);
+    }
+
     internal static ItemInfo GetItem(int id)
     {
         instance.itemMap.TryGetValue(id, out ItemInfo result);
@@ -47,6 +54,7 @@ public class ShopItemData : MonoBehaviour
             itemMap[item.ID] = item;
         }
     }
+
     public List<ItemInfo> items;
     public Dictionary<int, ItemInfo> itemMap = new Dictionary<int, ItemInfo>();
 }

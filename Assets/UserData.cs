@@ -18,6 +18,7 @@ public class UserData : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        DataLoad();
     }
 
     public int userID;
@@ -25,11 +26,7 @@ public class UserData : MonoBehaviour
     public int dia;
 
     public List<HaveItemInfo> userItems;
-    // Start is called before the first frame update
-    void Start()
-    {
-        DataLoad();
-    }
+
     private void OnDestroy()
     {
         DataSave();
@@ -59,8 +56,16 @@ public class UserData : MonoBehaviour
             PlayerPrefs.SetInt("count" + i, item.count);
             PlayerPrefs.SetString("getDate" + i, item.getDate);
         }
+
+        //장착 정보 저장.
+        foreach(var item in equipedItem)
+        {
+            PlayerPrefs.SetInt("Equiped" + item.Key, item.Value);
+        }
         PlayerPrefs.Save();
     }
+
+    public static Dictionary<ItemType, int> equipedItem = new Dictionary<ItemType, int>(); // < , ItemID>
 
     [ContextMenu("DataLoad")]
     public void DataLoad()
@@ -79,6 +84,16 @@ public class UserData : MonoBehaviour
             item.count = PlayerPrefs.GetInt("count" + i);
             item.getDate = PlayerPrefs.GetString("getDate" + i);
             userItems.Add(item);
+        }
+
+        equipedItem.Clear();
+        var itemTypes = Enum.GetNames(typeof(ItemType));
+
+        for (ItemType itemType = ItemType.StartIndex + 1; itemType < ItemType.EndIndex; itemType++)
+        {
+            string key = "Equiped" + itemType;
+            if (PlayerPrefs.HasKey(key))
+                equipedItem[itemType] = PlayerPrefs.GetInt(key);
         }
     }
     public static void SetGold(int gold)

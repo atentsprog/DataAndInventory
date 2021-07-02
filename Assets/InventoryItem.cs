@@ -13,7 +13,15 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         //print("click: " + eventData);
-        ItemInfoUI.instance.ShowInventoryItemInfo(haveItemInfo);
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            // 우클릭이면 장착 하자.
+            EquipUI.instance.SetEquipItem(haveItemInfo);
+        }
+        else
+        {
+            ItemInfoUI.instance.ShowInventoryItemInfo(haveItemInfo);
+        }
     }
 
     internal void Init(HaveItemInfo item)
