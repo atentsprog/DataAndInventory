@@ -95,7 +95,16 @@ public class UserData : MonoBehaviour
             if (PlayerPrefs.HasKey(key))
                 equipedItem[itemType] = PlayerPrefs.GetInt(key);
         }
+
+        RefreshUI();
     }
+
+    private static void RefreshUI()
+    {
+        UserMoneyUI.instance.Refresh();
+        InventoryUI.instance.Refresh();
+    }
+
     public static void SetGold(int gold)
     {
         PlayerPrefs.SetInt("gold", gold);
