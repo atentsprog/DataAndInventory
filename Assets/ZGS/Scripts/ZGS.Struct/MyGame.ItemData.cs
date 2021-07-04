@@ -10,13 +10,14 @@ using System.Reflection;
 using UnityEngine;
 
 
-namespace MyGame1
+namespace MyGame
 {
+    [System.Serializable]
     [Hamster.ZG.Attribute.TableStruct]
     public partial class ItemData : ITable
     { 
 
-        public delegate void OnLoadedFromGoogleSheets(List<ItemData> loadedList, Dictionary<int, ItemData> loadedDictionary);
+        public delegate void OnLoadedFromGoogleSheets(List<ItemData> loadedList, Dictionary<string, ItemData> loadedDictionary);
 
         static bool isLoaded = false;
         static string spreadSheetID = "1dEPQWzolSfNLdiqG3weaMo2LKKtkcO4soYdDGSaBms4"; // it is file id
@@ -24,20 +25,21 @@ namespace MyGame1
         static UnityFileReader reader = new UnityFileReader();
 
 /* Your Loaded Data Storage. */
-        public static Dictionary<int, ItemData> ItemDataMap = new Dictionary<int, ItemData>(); 
+        public static Dictionary<string, ItemData> ItemDataMap = new Dictionary<string, ItemData>(); 
         public static List<ItemData> ItemDataList = new List<ItemData>();   
 
 /* Fields. */
 
-		public Int32 ID;
 		public String name;
+		public Int32 itemID;
+		public String description;
 		public String iconName;
-		public Int32 type;
-		public Int32 grade;
+		public ItemType type;
+		public Grade grade;
 		public Int32 sellPrice;
-		public Int32 sellMoneyType;
+		public MoneyType sellMoneyType;
 		public Int32 buyPrice;
-		public Int32 buyPriceType;
+		public MoneyType buyPriceType;
 		public String prefabName;
 		public Int32 maxStack;
   
@@ -81,7 +83,7 @@ else
 
 /*Load Data From Google Sheet! Working fine with runtime&editor*/
 
-        public static void LoadFromGoogle(System.Action<List<ItemData>, Dictionary<int, ItemData>> onLoaded, bool updateCurrentData = false)
+        public static void LoadFromGoogle(System.Action<List<ItemData>, Dictionary<string, ItemData>> onLoaded, bool updateCurrentData = false)
         {      
             TypeMap.Init();
             IZGRequester webInstance = null;
@@ -104,9 +106,9 @@ else
                 ItemDataList?.Clear(); 
             }
             List<ItemData> callbackParamList = new List<ItemData>();
-            Dictionary<int,ItemData> callbackParamMap = new Dictionary<int, ItemData>();
+            Dictionary<string,ItemData> callbackParamMap = new Dictionary<string, ItemData>();
             webInstance.ReadGoogleSpreadSheet(spreadSheetID, (data, json) => {
-            FieldInfo[] fields = typeof(MyGame1.ItemData).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(MyGame.ItemData).GetFields(BindingFlags.Public | BindingFlags.Instance);
             List<(string original, string propertyName, string type)> typeInfos = new List<(string,string,string)>();
             List<List<string>> typeValuesCList = new List<List<string>>(); 
               if (json != null)
@@ -128,7 +130,7 @@ else
                                 int rows = typeValuesCList[0].Count;
                                 for (int i = 0; i < rows; i++)
                                 {
-                                    MyGame1.ItemData instance = new MyGame1.ItemData();
+                                    MyGame.ItemData instance = new MyGame.ItemData();
                                     for (int j = 0; j < typeInfos.Count; j++)
                                     {
                                        try
@@ -149,11 +151,11 @@ else
                                     }
                                     //Add Data to Container
                                     callbackParamList.Add(instance);
-                                    callbackParamMap .Add(instance.ID, instance);
+                                    callbackParamMap .Add(instance.name, instance);
                                     if(updateCurrentData)
                                     {
                                        ItemDataList.Add(instance);
-                                       ItemDataMap.Add(instance.ID, instance);
+                                       ItemDataMap.Add(instance.name, instance);
                                     }
                                 } 
                             }
@@ -180,11 +182,11 @@ else
             //Type Map Init
             TypeMap.Init();
             //Reflection Field Datas.
-            FieldInfo[] fields = typeof(MyGame1.ItemData).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(MyGame.ItemData).GetFields(BindingFlags.Public | BindingFlags.Instance);
             List<(string original, string propertyName, string type)> typeInfos = new List<(string,string,string)>();
             List<List<string>> typeValuesCList = new List<List<string>>(); 
             //Load GameData.
-            string text = reader.ReadData("MyGame1");
+            string text = reader.ReadData("MyGame");
             if (text != null)
             {
                 var result = Newtonsoft.Json.JsonConvert.DeserializeObject<GetTableResult>(text);
@@ -204,7 +206,7 @@ else
                             int rows = typeValuesCList[0].Count;
                             for (int i = 0; i < rows; i++)
                             {
-                                MyGame1.ItemData instance = new MyGame1.ItemData();
+                                MyGame.ItemData instance = new MyGame.ItemData();
                                 for (int j = 0; j < typeInfos.Count; j++)
                                 {
                                     try{
@@ -225,7 +227,7 @@ else
 
                          //Add Data to Container
                         ItemDataList.Add(instance);
-                        ItemDataMap.Add(instance.ID, instance);
+                        ItemDataMap.Add(instance.name, instance);
                   
                        
                          } 

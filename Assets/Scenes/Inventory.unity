@@ -1534,6 +1534,174 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: useCloudData
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[0].name
+      value: "\uCE7C"
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[0].type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[1].name
+      value: "\uD65C"
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[1].type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[2].name
+      value: "\uBC29\uD328"
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[3].name
+      value: "\uBCA8\uD2B8"
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[3].type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[4].name
+      value: "\uD3EC\uC158"
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[4].type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[5].name
+      value: "\uD3EC\uC158"
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[5].type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[0].itemID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[1].itemID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[2].itemID
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[3].itemID
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[4].itemID
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[5].itemID
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[0].buyPrice
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[0].iconName
+      value: sword
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[1].buyPrice
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[1].iconName
+      value: b_t_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[2].buyPrice
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[2].iconName
+      value: shoulders
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[3].buyPrice
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[3].iconName
+      value: belts
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[4].buyPrice
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[4].iconName
+      value: hp
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[5].buyPrice
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[5].iconName
+      value: hp
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[0].sellPrice
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[2].sellPrice
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[3].sellPrice
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[4].sellPrice
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[5].sellPrice
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[0].description
+      value: "\uC88B\uC740\uCE7C"
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[1].description
+      value: MaybeJone's Bow
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[2].description
+      value: "\uC5C6\uB294\uAC70\uBCF4\uB2E8 \uC88B\uC740 \uBC29\uD328"
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[3].description
+      value: "\uBC30\uB098\uC624\uB294\uAC83\uC744 \uB9C9\uC544\uC900\uB2E4"
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[4].description
+      value: "hp 10\uD68C\uBCF5"
+      objectReference: {fileID: 0}
+    - target: {fileID: 34184698514126943, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
+      propertyPath: shopItems.Array.data[5].description
+      value: "hp 10\uD68C\uBCF5"
+      objectReference: {fileID: 0}
     - target: {fileID: 1310566198229131477, guid: 92a5ac0f1149ca946878993f5c90e750, type: 3}
       propertyPath: m_Name
       value: ShopItemData

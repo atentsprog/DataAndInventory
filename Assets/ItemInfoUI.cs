@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyGame;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +17,7 @@ public class ItemInfoUI : MonoBehaviour
         instance = this;
     }
     public ShopItemInfo shopItemInfo;
-    public InventoryItemInfo inventoryItemInfo;
+    public InventoryItemInfo inventoryItemInfo; // 지금 보여주고 있는 아이템을 삭제할 경우 사용
     internal void ShowInventoryItem(InventoryItemInfo inventoryItemInfo)
     {
         this.inventoryItemInfo = inventoryItemInfo;
@@ -32,7 +33,9 @@ public class ItemInfoUI : MonoBehaviour
 
         UserData.instance.Gold += shopItemInfo.sellPrice;
 
+        // UserData 싱글턴 클래스 접근해서 가지고 있는 아이템중에 보관하고 있던 inventoryItemInfo이 있으면 삭제
         UserData.instance.inventoryItems.Remove(inventoryItemInfo);
+
         InventoryUI.instance.RefreshUI();
     }
     internal void ShowShopItem(ShopItemInfo shopItemInfo)

@@ -20,6 +20,7 @@ namespace Hamster.ZG.IO
 @assemblys
 namespace @namespace
 {
+    [System.Serializable]
     [Hamster.ZG.Attribute.TableStruct]
     public partial class @class : ITable
     { 
