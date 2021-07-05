@@ -67,6 +67,7 @@
     <Compile Include="Assets\EquipUI.cs" />
     <Compile Include="Assets\ZG\ZG.Core\Type\Impl\LongType.cs" />
     <Compile Include="Assets\ZG\ZG.Core\IO\Generator\GenerateSetting.cs" />
+    <Compile Include="Assets\FirestoreStudy.cs" />
     <Compile Include="Assets\ZG\ZG.Core\IO\Generator\EnumGenerator.cs" />
     <Compile Include="Assets\Scripts\Common\GOHelper.cs" />
     <Compile Include="Assets\EquipItem.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Assets\ShopItemData.cs" />
     <Compile Include="Assets\ZG\ZG.Core\IO\Parser\IParser.cs" />
     <Compile Include="Assets\ZG\ZG.Core\Type\Impl\CharListType.cs" />
+    <Compile Include="Assets\Firebase\Sample\Auth\UIHandler.cs" />
     <Compile Include="Assets\UISample\QuestUISample.cs" />
     <Compile Include="Assets\UserGoldUI.cs" />
     <Compile Include="Assets\ZG\ZG.Core\Http\Protocol\ReceiveDatas.cs" />
@@ -161,13 +163,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Firebase\Plugins\x86_64\FirebaseCppFirestore.dll" />
-    <None Include="Assets\Parse\Plugins\Unity.Compat.dll" />
     <None Include="Assets\Firebase\Plugins\Firebase.App.dll" />
-    <None Include="Assets\Parse\Plugins\Unity.Tasks.dll" />
     <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-firestore-unity\maven-metadata.xml" />
+    <None Include="Assets\Firebase\Plugins\x86_64\FirebaseCppAuth.dll" />
     <None Include="Assets\Firebase\Plugins\iOS\Firebase.Firestore.dll" />
     <None Include="Assets\Firebase\Plugins\Firebase.TaskExtension.dll" />
     <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-app-unity\maven-metadata.xml" />
+    <None Include="Assets\Firebase\Plugins\Firebase.Auth.dll" />
+    <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-auth-unity\maven-metadata.xml" />
+    <None Include="Assets\Firebase\Plugins\iOS\Firebase.Auth.dll" />
     <None Include="Assets\Firebase\Plugins\Firebase.Firestore.dll" />
     <None Include="Assets\Firebase\Plugins\x86_64\FirebaseCppApp-8_0_0.dll" />
     <None Include="Assets\Parse\Plugins\dotNet45\Unity.Compat.dll" />
@@ -399,14 +403,8 @@
     <Reference Include="UnityEditor.UnityConnectModule">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.13f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Compat">
-      <HintPath>Assets\Parse\Plugins\dotNet45\Unity.Compat.dll</HintPath>
-    </Reference>
     <Reference Include="Firebase.Firestore">
       <HintPath>Assets\Firebase\Plugins\Firebase.Firestore.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Tasks">
-      <HintPath>Assets\Parse\Plugins\dotNet45\Unity.Tasks.dll</HintPath>
     </Reference>
     <Reference Include="Firebase.TaskExtension">
       <HintPath>Assets\Firebase\Plugins\Firebase.TaskExtension.dll</HintPath>
@@ -414,14 +412,23 @@
     <Reference Include="Google.MiniJson">
       <HintPath>Assets\Firebase\Plugins\Google.MiniJson.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Tasks">
+      <HintPath>Assets\Parse\Plugins\dotNet45\Unity.Tasks.dll</HintPath>
+    </Reference>
     <Reference Include="Firebase.Platform">
       <HintPath>Assets\Firebase\Plugins\Firebase.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Compat">
+      <HintPath>Assets\Parse\Plugins\dotNet45\Unity.Compat.dll</HintPath>
     </Reference>
     <Reference Include="Firebase.App">
       <HintPath>Assets\Firebase\Plugins\Firebase.App.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@2.0.0\Runtime\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Auth">
+      <HintPath>Assets\Firebase\Plugins\Firebase.Auth.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.13f1\Editor\Data\PlaybackEngines\iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
