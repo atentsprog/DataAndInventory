@@ -100,9 +100,10 @@ public class ShopItemData : MonoBehaviour
         for (int i = 0; i < shopItems.Count; i++)
         {
             //0 / shopItems.Count
+#if UNITY_EDITOR
             float percent = ((float)i / shopItems.Count);
             UnityEditor.EditorUtility.DisplayProgressBar("구글 에서 데이터 가져오는 중", (percent * 100).ToString() + "%", percent);
-
+#endif
             var item = shopItems[i];
 
             MyGame.ItemData itemData = MyGame.ItemData.ItemDataMap[item.itemID];
@@ -115,7 +116,9 @@ public class ShopItemData : MonoBehaviour
             itemData.sellPrice = item.sellPrice;
             UnityGoogleSheet.Write(itemData);
         }
+#if UNITY_EDITOR
         UnityEditor.EditorUtility.ClearProgressBar();
+#endif
     }
 
     [ContextMenu("구글시트에서 로드")]
