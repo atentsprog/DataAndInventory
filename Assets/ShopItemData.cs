@@ -65,7 +65,7 @@ public class ShopItemData : MonoBehaviour
     }
     public List<ShopItemInfo> shopItems;
 
-    [ContextMenu("Load Name2", false, -10000)]
+    [ContextMenu("리소스폴더 JSON로드", false, -10000)]
     void Load()
     {
         MyGame.ItemData.Load();
@@ -82,7 +82,7 @@ public class ShopItemData : MonoBehaviour
         }
     }
 
-    [ContextMenu("Save To Google Sheed", false, -10000)]
+    [ContextMenu("첫번째 항목 구글 시트에 저장(테스트)", false, -10000)]
     void SaveToGogleSheet()
     {
         UnityGoogleSheet.Load<MyGame.ItemData>();
@@ -93,7 +93,7 @@ public class ShopItemData : MonoBehaviour
         UnityGoogleSheet.Write(mapItem);
     }
 
-    [ContextMenu("인스펙터에 있는 내용 구글에 적용(너무 느림, 개당 2초)")]
+    [ContextMenu("인스펙터에 있는 내용 구글에 적용(너무 느림, 개당 약2초 소요)")]
     void SaveToGoogleSheetAll()
     {
         UnityGoogleSheet.Load<MyGame.ItemData>();
