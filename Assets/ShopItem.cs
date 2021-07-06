@@ -18,6 +18,6 @@ public class ShopItem : MonoBehaviour, IPointerClickHandler
         this.shopItemInfo = item;
         transform.Find("PriceText").GetComponent<Text>().text = item.buyPrice.ToString();
 
-        GetComponent<Image>().sprite = item.icon;
+        GetComponent<Image>().sprite = item.Icon;
     }
 }

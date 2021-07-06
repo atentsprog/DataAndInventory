@@ -12,6 +12,6 @@ public class EquipItem : MonoBehaviour
         ShopItemInfo shopItemInfo = inventoryItemInfo.GetShopItemInfo();
 
         Image iamge = transform.Find("Image").GetComponent<Image>();
-        iamge.sprite = shopItemInfo.icon;
+        iamge.sprite = shopItemInfo.Icon;
     }
 }

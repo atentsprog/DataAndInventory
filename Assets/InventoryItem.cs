@@ -24,7 +24,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
         inventoryItemInfo = item;
         ShopItemInfo shopItemInfo = item.GetShopItemInfo();
         
-        GetComponent<Image>().sprite = shopItemInfo.icon;
+        GetComponent<Image>().sprite = shopItemInfo.Icon;
         transform.Find("CountText").GetComponent<Text>().text = item.count.ToString();
     }
 }
