@@ -97,8 +97,14 @@ public class ShopItemData : MonoBehaviour
     void SaveToGoogleSheetAll()
     {
         UnityGoogleSheet.Load<MyGame.ItemData>();
-        foreach (var item in shopItems)
+        for (int i = 0; i < shopItems.Count; i++)
         {
+            //0 / shopItems.Count
+            float percent = ((float)i / shopItems.Count);
+            UnityEditor.EditorUtility.DisplayProgressBar("구글 에서 데이터 가져오는 중", (percent * 100).ToString() + "%", percent);
+
+            var item = shopItems[i];
+
             MyGame.ItemData itemData = MyGame.ItemData.ItemDataMap[item.itemID];
             itemData.name = item.name;
             itemData.itemID = item.itemID;
@@ -109,6 +115,7 @@ public class ShopItemData : MonoBehaviour
             itemData.sellPrice = item.sellPrice;
             UnityGoogleSheet.Write(itemData);
         }
+        UnityEditor.EditorUtility.ClearProgressBar();
     }
 
     [ContextMenu("구글시트에서 로드")]
