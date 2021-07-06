@@ -68,16 +68,57 @@ public class ShopItemData : MonoBehaviour
     [ContextMenu("Load Name2", false, -10000)]
     void Load()
     {
-        ////Fist time must be need call load();
-        //UnityGoogleSheet.Load<MyGame.ItemData>();  // or call DefaultTable.Data.Load(); it's same!
-
         MyGame.ItemData.Load();
 
+        InitFromGoogleData();
+    }
+
+    private void InitFromGoogleData()
+    {
         shopItems.Clear();
-        foreach(var item in MyGame.ItemData.ItemDataList)
+        foreach (var item in MyGame.ItemData.ItemDataList)
         {
             shopItems.Add(new ShopItemInfo(item));
         }
-        //MyGame.ItemData.ItemDataMap
+    }
+
+    [ContextMenu("Save To Google Sheed", false, -10000)]
+    void SaveToGogleSheet()
+    {
+        UnityGoogleSheet.Load<MyGame.ItemData>();
+        var firstItem = shopItems[0];
+        var mapItem = MyGame.ItemData.ItemDataMap[firstItem.itemID];
+        mapItem.description = firstItem.description;
+        //Wirte 
+        UnityGoogleSheet.Write(mapItem);
+    }
+
+    [ContextMenu("인스펙터에 있는 내용 구글에 적용(너무 느림, 개당 2초)")]
+    void SaveToGoogleSheetAll()
+    {
+        UnityGoogleSheet.Load<MyGame.ItemData>();
+        foreach (var item in shopItems)
+        {
+            MyGame.ItemData itemData = MyGame.ItemData.ItemDataMap[item.itemID];
+            itemData.name = item.name;
+            itemData.itemID = item.itemID;
+            itemData.iconName = item.iconName;
+            itemData.description = item.description;
+            itemData.type = item.type;
+            itemData.buyPrice = item.buyPrice;
+            itemData.sellPrice = item.sellPrice;
+            UnityGoogleSheet.Write(itemData);
+        }
+    }
+
+    [ContextMenu("구글시트에서 로드")]
+    void LoadFromGoogleSheet()
+    {
+        MyGame.ItemData.LoadFromGoogle((list, map) => {
+            foreach (var data in MyGame.ItemData.ItemDataList)
+            {
+                InitFromGoogleData();
+            }
+        }, true);
     }
 }
