@@ -27,9 +27,17 @@ public class UserData : MonoBehaviour
     {
         get { return gold; }
         set { gold = value;
+            // 구글에 변경된 골드 저장.
+            SaveGoldToCloud();
             MoneyUI.instance?.RefreshUI();
         }
     }
+
+    private void SaveGoldToCloud()
+    {
+        FirestoreData.SaveToUserCloud("UserInfo", "Gold", gold);
+    }
+
     public int dia;
     private void Awake()
     {
@@ -44,26 +52,26 @@ public class UserData : MonoBehaviour
     
     private void Load()
     {
-        if (PlayerPrefs.HasKey("gold"))
-        {
-            Gold = PlayerPrefs.GetInt("gold");
-            dia = PlayerPrefs.GetInt("dia");
+        //if (PlayerPrefs.HasKey("gold"))
+        //{
+        //    //Gold = PlayerPrefs.GetInt("gold");
+        //    dia = PlayerPrefs.GetInt("dia");
 
-            int itemCount = PlayerPrefs.GetInt("inventoryItems.Count");
-            for (int i = 0; i < itemCount; i++)
-            {
-                var loadItem = new InventoryItemInfo();
-                loadItem.itemID = PlayerPrefs.GetInt("inventoryItems.itemID" + i);
-                loadItem.count = PlayerPrefs.GetInt("inventoryItems.count" + i);
-                loadItem.getDate = PlayerPrefs.GetString("inventoryItems.getDate" + i);
-                inventoryItems.Add(loadItem);
-            }
-        }
-        else
-        {
-            Gold = 1100;
-            dia = 120;
-        }
+        //    int itemCount = PlayerPrefs.GetInt("inventoryItems.Count");
+        //    for (int i = 0; i < itemCount; i++)
+        //    {
+        //        var loadItem = new InventoryItemInfo();
+        //        loadItem.itemID = PlayerPrefs.GetInt("inventoryItems.itemID" + i);
+        //        loadItem.count = PlayerPrefs.GetInt("inventoryItems.count" + i);
+        //        loadItem.getDate = PlayerPrefs.GetString("inventoryItems.getDate" + i);
+        //        inventoryItems.Add(loadItem);
+        //    }
+        //}
+        //else
+        //{
+        //    Gold = 1100;
+        //    dia = 120;
+        //}
     }
 
     public static void SetGold(int gold)

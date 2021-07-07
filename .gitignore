@@ -64,3 +64,6 @@ crashlytics-build.properties
 /Assets/Scenes
 /UserSettings
 /.vsconfig
+/Assets/Plugins/iOS/Firebase
+/Assets/Parse
+/Assets/Firebase
