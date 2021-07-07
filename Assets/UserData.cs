@@ -42,6 +42,12 @@ public class UserData : MonoBehaviour
     private void Awake()
     {
         instance = this;
+    }
+
+    private IEnumerator Start()
+    {
+        while (string.IsNullOrEmpty(FirestoreManager.instance.userID))
+            yield return null;
 
         Load();
     }
@@ -52,6 +58,8 @@ public class UserData : MonoBehaviour
     
     private void Load()
     {
+        FirestoreData.LoadFromUserCloud("UserInfo", LoadCallBack);
+        //Gold = 
         //if (PlayerPrefs.HasKey("gold"))
         //{
         //    //Gold = PlayerPrefs.GetInt("gold");
@@ -72,6 +80,19 @@ public class UserData : MonoBehaviour
         //    Gold = 1100;
         //    dia = 120;
         //}
+    }
+
+    private void LoadCallBack(IDictionary<string, object> obj)
+    {
+        if(obj.ContainsKey("Gold"))
+            Gold = Convert.ToInt32(obj["Gold"]);
+        else
+            Gold = 1100;
+
+        if (obj.ContainsKey("Dia"))
+            dia = Convert.ToInt32(obj["Dia"]);
+        else
+            dia = 120;
     }
 
     public static void SetGold(int gold)
