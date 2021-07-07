@@ -1,35 +1,50 @@
 {
   "project_info": {
-    "project_number": "140442908432",
-    "project_id": "firestoresample-af84f",
-    "firebase_url": "firestoresample-af84f",
-    "storage_bucket": "firestoresample-af84f.appspot.com"
+    "project_number": "610210684659",
+    "firebase_url": "https://fir-test-d9c8e.firebaseio.com",
+    "project_id": "fir-test-d9c8e",
+    "storage_bucket": "fir-test-d9c8e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:140442908432:android:374062407ed28749261795",
+        "mobilesdk_app_id": "1:610210684659:android:894af5beaa0a6573b72186",
         "android_client_info": {
-          "package_name": "com.test.firestoresample"
+          "package_name": "com.troll.functions.testapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "140442908432-gio4f35vg09m2plj0m5cipntctgirure.apps.googleusercontent.com",
+          "client_id": "610210684659-orobf127ue3keju0cghfdk05vedhna2a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.troll.functions.testapp",
+            "certificate_hash": "25405601563482e2bf0628ce4ccf11bb6f412238"
+          }
+        },
+        {
+          "client_id": "610210684659-ah7l1lmi9u5lusr7q03kfc3qnjd8fcqj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDZ26-40Wjarh2TckG73F_Luya33iR37x8"
+          "current_key": "AIzaSyA-QPHh8sciL9AWyZJ-LdAtGTfdPXyFRKY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "140442908432-gio4f35vg09m2plj0m5cipntctgirure.apps.googleusercontent.com",
+              "client_id": "610210684659-ah7l1lmi9u5lusr7q03kfc3qnjd8fcqj.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "610210684659-su77ulg54sngto87as4o46gk0us1e2um.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.troll.functions.testapp"
+              }
             }
           ]
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Firebase.Firestore;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -53,7 +54,7 @@ public class UserData : MonoBehaviour
     }
     private void OnDestroy()
     {
-        Save();
+        //Save();
     }    
     
     private void Load()
@@ -106,20 +107,84 @@ public class UserData : MonoBehaviour
         }
     }
 
+    [ContextMenu("SaveUserData")]
     private void Save()
     {
-        PlayerPrefs.SetInt("inventoryItems.Count", inventoryItems.Count);
-        for (int i = 0; i < inventoryItems.Count; i++)
+        CustomUser customUser = new CustomUser();
+        customUser.Name = "a";
+        customUser.Gold = 1;
+        customUser.Dia = 2;
+        customUser.InventoryItems = new List<InventoryItemCloud>();
+        customUser.InventoryItems.Add(new InventoryItemCloud()
         {
-            var saveItem = inventoryItems[i];
-            PlayerPrefs.SetInt("inventoryItems.itemID" + i, saveItem.itemID);
-            PlayerPrefs.SetInt("inventoryItems.count" + i, saveItem.count);
-            PlayerPrefs.SetString("inventoryItems.getDate" + i, saveItem.getDate);
-        }
+            ItemUID = 1,
+            Count = 2,
+            GetDate = DateTime.Now
+        });
+        customUser.InventoryItems.Add(new InventoryItemCloud()
+        {
+            ItemUID = 2,
+            Count = 3,
+            GetDate = DateTime.Now
+        });
+
+        FirestoreData.SaveToUserCloud("UserData", "User1", customUser);
+
+        //PlayerPrefs.SetInt("inventoryItems.Count", inventoryItems.Count);
+        //for (int i = 0; i < inventoryItems.Count; i++)
+        //{
+        //    var saveItem = inventoryItems[i];
+        //    PlayerPrefs.SetInt("inventoryItems.itemID" + i, saveItem.itemID);
+        //    PlayerPrefs.SetInt("inventoryItems.count" + i, saveItem.count);
+        //    PlayerPrefs.SetString("inventoryItems.getDate" + i, saveItem.getDate);
+        //}
         
 
-        PlayerPrefs.SetInt("gold", Gold);
-        PlayerPrefs.SetInt("dia", dia);
-        PlayerPrefs.Save();
+        //PlayerPrefs.SetInt("gold", Gold);
+        //PlayerPrefs.SetInt("dia", dia);
+        //PlayerPrefs.Save();
+    }
+
+
+}
+
+[FirestoreData]
+public sealed class InventoryItemCloud
+{
+    [FirestoreProperty]
+    public int ItemUID { get; set; }
+    [FirestoreProperty]
+    public int Count { get; set; }
+    [FirestoreProperty]
+    public DateTime GetDate { get; set; }
+
+}
+[FirestoreData]
+public sealed class CustomUser
+{
+    [FirestoreProperty]
+    public int UserUID { get; set; }
+
+    [FirestoreProperty]
+    public int Gold { get; set; }
+    [FirestoreProperty]
+    public int Dia { get; set; }
+    [FirestoreProperty] public string Name { get; set; }
+    [FirestoreProperty] public List<InventoryItemCloud> InventoryItems { get; set; }
+
+    public override bool Equals(object obj)
+    {
+        if (!(obj is CustomUser))
+        {
+            return false;
+        }
+
+        CustomUser other = (CustomUser)obj;
+        return Gold == other.Gold && Name == other.Name;
+    }
+
+    public override int GetHashCode()
+    {
+        return 0;
     }
 }
