@@ -28,6 +28,12 @@ public class UserData : MonoBehaviour
                 userDataServer.Gold = 1000;
                 userDataServer.Dia = 10;
                 userDataServer.InventoryItems = new List<InventoryItemServer>();
+            }else
+            {
+                foreach(var item in userDataServer.InventoryItems)
+                {
+                    item.GetDate = item.GetDate.AddHours(9);
+                }
             }
 
             if (userDataServer.InventoryItems == null)
