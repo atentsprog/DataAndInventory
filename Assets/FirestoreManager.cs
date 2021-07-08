@@ -158,6 +158,34 @@ public class FirestoreManager : MonoBehaviour
             //앱 삭제나 로그아웃 하기전까지 유지된다.
             auth.SignInAnonymouslyAsync().ContinueWithOnMainThread(HandleSignInWithUser);
         }
+        else
+        {
+            // 익명 로그인 한적이 있으면 ID가 들어와야 한다. 3초 뒤에도 익명 로그인 안되면 로그인할지 물어보고 로그인 하자.
+            LoginWhenBlankLogin();
+        }
+    }
+
+    Coroutine checkBlankLoginIDHandle;
+    private void LoginWhenBlankLogin()
+    {
+        if(checkBlankLoginIDHandle != null)
+            StopCoroutine(checkBlankLoginIDHandle);
+        checkBlankLoginIDHandle = StartCoroutine(CheckBlankLoginIDCo());
+    }
+
+    private IEnumerator CheckBlankLoginIDCo()
+    {
+        yield return new WaitForSeconds(3);
+        if(string.IsNullOrEmpty(userID))
+        {
+            Debug.LogWarning("userID 가 없습니다. 네트워크 연결을 확인해주세요");
+#if UNITY_EDITOR
+            if(UnityEditor.EditorUtility.DisplayDialog("확인", "임시 아이디가 없습니다. 익명 로그인 하시겠습니까?", "확인", "취소"))
+            {
+                auth.SignInAnonymouslyAsync().ContinueWithOnMainThread(HandleSignInWithUser);
+            }
+#endif
+        }
     }
 
     protected FirebaseFirestore db
