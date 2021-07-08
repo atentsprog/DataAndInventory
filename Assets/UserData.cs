@@ -1,4 +1,5 @@
-﻿using Firebase.Firestore;
+﻿using Firebase.Extensions;
+using Firebase.Firestore;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,13 +19,15 @@ public class UserData : MonoBehaviour
     {        
         FirestoreManager.LoadFromUserCloud(UserInfo, (DocumentSnapshot ds ) =>
         {
-            if(ds.TryGetValue("MyUserInfo", out userDataServer) == false)
-            {
-                print("서버에 UserData가 없다. 초기값을 설정하자.");
-                userDataServer.Gold = 1000;
-                userDataServer.Dia = 10;
-                userDataServer.InventoryItems = new List<InventoryItemServer>();
-            }
+            userDataServer = ds.GetValue<UserDataServer>("MyUserInfo");
+
+            //if (ds.TryGetValue("MyUserInfo", out userDataServer) == false)
+            //{
+            //    print("서버에 UserData가 없다. 초기값을 설정하자.");
+            //    userDataServer.Gold = 1000;
+            //    userDataServer.Dia = 10;
+            //    userDataServer.InventoryItems = new List<InventoryItemServer>();
+            //}
 
             isLoadComplete = true;
             InventoryUI.instance.RefreshUI();
@@ -74,12 +77,125 @@ public class UserData : MonoBehaviour
         // 서버에 에서 삭제하자.
     }
 
+    protected FirebaseFirestore db
+    {
+        get
+        {
+            return FirebaseFirestore.DefaultInstance;
+        }
+    }
+
+    [ContextMenu("삭제테스트")]
+    void DeleteTemp()
+    {
+        //DocumentReference cityRef = FirebaseFirestore.DefaultInstance.Document("UserInfo/" +
+        //    FirestoreManager.instance.userID
+        //    );
+
+        //Dictionary<string, object> updates = new Dictionary<string, object>
+        //{
+        //    { "Key1", FieldValue.Delete }
+        //};
+        //cityRef.UpdateAsync(updates);
+
+        CollectionReference citiesRef = db.Collection("cities");
+        citiesRef.Document("SF").SetAsync(new Dictionary<string, object>(){
+    { "Name", "San Francisco" },
+    { "State", "CA" },
+    { "Country", "USA" },
+    { "Capital", false },
+    { "Population", 860000 },
+    { "Regions", new ArrayList{"west_coast", "norcal"} }
+});
+        citiesRef.Document("LA").SetAsync(new Dictionary<string, object>(){
+    { "Name", "Los Angeles" },
+    { "State", "CA" },
+    { "Country", "USA" },
+    { "Capital", false },
+    { "Population", 3900000 },
+    { "Regions", new ArrayList{"west_coast", "socal"} }
+});
+        citiesRef.Document("DC").SetAsync(new Dictionary<string, object>(){
+    { "Name", "Washington D.C." },
+    { "State", null },
+    { "Country", "USA" },
+    { "Capital", true },
+    { "Population", 680000 },
+    { "Regions", new ArrayList{"east_coast"} }
+});
+        citiesRef.Document("TOK").SetAsync(new Dictionary<string, object>(){
+    { "Name", "Tokyo" },
+    { "State", null },
+    { "Country", "Japan" },
+    { "Capital", true },
+    { "Population", 9000000 },
+    { "Regions", new ArrayList{"kanto", "honshu"} }
+});
+        citiesRef.Document("BJ").SetAsync(new Dictionary<string, object>(){
+    { "Name", "Beijing" },
+    { "State", null },
+    { "Country", "China" },
+    { "Capital", true },
+    { "Population", 21500000 },
+    { "Regions", new ArrayList{"jingjinji", "hebei"} }
+});
+    }
+
+    [ContextMenu("CA인 모든 도시를 반환")]
+    void Test1()
+    {
+        CollectionReference citiesRef = db.Collection("cities");
+        Query query = citiesRef.WhereEqualTo("State", "CA");
+        query.GetSnapshotAsync().ContinueWithOnMainThread((querySnapshotTask) =>
+        {
+            foreach (DocumentSnapshot documentSnapshot in querySnapshotTask.Result.Documents)
+            {
+                Debug.Log(String.Format("Document {0} returned by query State=CA", documentSnapshot.Id));
+            }
+        });
+    }
+
+    [ContextMenu("모든 수도를 반환")]
+    void Test2()
+    {
+        CollectionReference citiesRef = db.Collection("cities");
+        Query query = citiesRef.WhereEqualTo("Capital", true);
+        query.GetSnapshotAsync().ContinueWithOnMainThread((querySnapshotTask) =>
+        {
+            foreach (DocumentSnapshot documentSnapshot in querySnapshotTask.Result.Documents)
+            {
+                Debug.Log(String.Format("Document {0} returned by query Capital=true", documentSnapshot.Id));
+            }
+        });
+    }
+
+    [ContextMenu("쿼리 객체를 만든 후 get() 함수를 사용하여 결과를 검색")]
+    void Test3()
+    {
+        Query capitalQuery = db.Collection("cities").WhereEqualTo("Capital", true);
+        capitalQuery.GetSnapshotAsync().ContinueWithOnMainThread(task => {
+            QuerySnapshot capitalQuerySnapshot = task.Result;
+            foreach (DocumentSnapshot documentSnapshot in capitalQuerySnapshot.Documents)
+            {
+                Debug.Log(String.Format("Document data for {0} document:", documentSnapshot.Id));
+                Dictionary<string, object> city = documentSnapshot.ToDictionary();
+                foreach (KeyValuePair<string, object> pair in city)
+                {
+                    Debug.Log(String.Format("{0}: {1}", pair.Key, pair.Value));
+                }
+
+                // Newline to separate entries
+                Debug.Log("");
+            };
+        });
+    }
+
     internal void ItemBuy(int buyPrice, InventoryItemServer newItem)
     {
         userDataServer.Gold -= buyPrice;
         userDataServer.InventoryItems.Add(newItem);
         //// 서버에에서 추가하자.
-        //FirestoreManager.SaveToUserServer()
+        FirestoreManager.SaveToUserServer(UserInfo, ("MyUserInfo", userDataServer));
     }
 }
 [System.Serializable]
@@ -92,9 +208,16 @@ public sealed class UserDataServer
     [SerializeField] private int iD;
     [SerializeField] private List<InventoryItemServer> inventoryItems;
 
-    [FirestoreProperty] public int Gold { get { return gold; } set { gold = value; } }
+    [FirestoreProperty] public int Gold { get { return gold; } set {
+            gold = value;
+            MoneyUI.instance?.RefreshUI();
+        } }
 
-    [FirestoreProperty] public int Dia { get => dia; set => dia = value; }
+    [FirestoreProperty] public int Dia { get => dia; set
+        {
+            dia = value;
+            MoneyUI.instance?.RefreshUI();
+        } }
     [FirestoreProperty] public string Name { get => name; set => name = value; }
     [FirestoreProperty] public int ID { get => iD; set => iD = value; }
     [FirestoreProperty]

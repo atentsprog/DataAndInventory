@@ -17,8 +17,8 @@ public class MoneyUI : MonoBehaviour
 
     void Start()
     {
-        RefreshUI();
-
+        goldText.text = "";
+        diaText.text = "";
     }
 
     public void RefreshUI()
