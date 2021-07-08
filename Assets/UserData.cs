@@ -53,9 +53,16 @@ public class UserData : MonoBehaviour
             Count = 4,
             GetDate = DateTime.Now
         });
-        Dictionary<string, object> dic = new Dictionary<string, object>();
-        dic["MyUserInfo"] = userDataServer;
-        FirestoreData.SaveToUserCloud("UserInfo", dic);
+        //Dictionary<string, object> dic = new Dictionary<string, object>();
+        //dic["MyUserInfo"] = userDataServer;
+        //FirestoreData.SaveToUserCloud("UserInfo", dic);
+        FirestoreManager.SaveToUserServer("UserInfo", ("MyUserInfo", userDataServer));
+    }
+
+    [ContextMenu("변수 2개 저장")]
+    private void Save2Variables()
+    {
+        FirestoreManager.SaveToUserServer("UserInfo", ("Key1", "Value1"), ("Key2", 1));
     }
 }
 [System.Serializable]

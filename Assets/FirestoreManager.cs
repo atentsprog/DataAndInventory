@@ -69,6 +69,23 @@ public class FirestoreManager : MonoBehaviour
         SaveToCloud(docPath, data);
     }
 
+    internal static void SaveToUserServer(string collectionName
+        , params (string, object)[] paramList)
+    {
+        instance._SaveToUserServer(collectionName, paramList);
+    }
+
+    private void _SaveToUserServer(string collectionName, params (string, object)[] data)
+    {
+        Dictionary<string, object> dic = new Dictionary<string, object>();
+
+        foreach (var item in data)
+        {
+            dic[item.Item1] = item.Item2;
+        }
+        SaveToCloud(collectionName, dic);
+    }
+
     const string AsyncID = "AsyncID";
     private bool IsExistLoginID()
     {
