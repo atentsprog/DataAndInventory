@@ -84,7 +84,7 @@ public class FirestoreManager : MonoBehaviour
 
     private void SignInAnonymous()
     {
-        //if (PlayerPrefs.HasKey(AsyncID) == false) //익명 로그인한적이 없는가?
+        if (PlayerPrefs.HasKey(AsyncID) == false) //익명 로그인한적이 없는가?
         {
             //앱 삭제나 로그아웃 하기전까지 유지된다.
             auth.SignInAnonymouslyAsync().ContinueWithOnMainThread(HandleSignInWithUser);
