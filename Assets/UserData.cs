@@ -19,15 +19,19 @@ public class UserData : MonoBehaviour
     {        
         FirestoreManager.LoadFromUserCloud(UserInfo, (DocumentSnapshot ds ) =>
         {
-            userDataServer = ds.GetValue<UserDataServer>("MyUserInfo");
+            //userDataServer = ds.GetValue<UserDataServer>("MyUserInfo");
 
-            //if (ds.TryGetValue("MyUserInfo", out userDataServer) == false)
-            //{
-            //    print("서버에 UserData가 없다. 초기값을 설정하자.");
-            //    userDataServer.Gold = 1000;
-            //    userDataServer.Dia = 10;
-            //    userDataServer.InventoryItems = new List<InventoryItemServer>();
-            //}
+            if (ds.TryGetValue("MyUserInfo", out userDataServer) == false)
+            {
+                //print("서버에 UserData가 없다. 초기값을 설정하자.");
+                userDataServer = new UserDataServer();
+                userDataServer.Gold = 1000;
+                userDataServer.Dia = 10;
+                userDataServer.InventoryItems = new List<InventoryItemServer>();
+            }
+
+            if (userDataServer.InventoryItems == null)
+                userDataServer.InventoryItems = new List<InventoryItemServer>();
 
             isLoadComplete = true;
             InventoryUI.instance.RefreshUI();
@@ -210,14 +214,15 @@ public sealed class UserDataServer
 
     [FirestoreProperty] public int Gold { get { return gold; } set {
             gold = value;
-            MoneyUI.instance?.RefreshUI();
+            //MoneyUI.instance?.RefreshUI(); <-- 이 로직 있으면 서버에서 값 가져올때 에러 발생한다
         } }
 
     [FirestoreProperty] public int Dia { get => dia; set
         {
             dia = value;
-            MoneyUI.instance?.RefreshUI();
-        } }
+            //MoneyUI.instance?.RefreshUI();<-- 이 로직 있으면 서버에서 값 가져올때 에러 발생한다
+        }
+    }
     [FirestoreProperty] public string Name { get => name; set => name = value; }
     [FirestoreProperty] public int ID { get => iD; set => iD = value; }
     [FirestoreProperty]
