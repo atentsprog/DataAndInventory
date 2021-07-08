@@ -79,7 +79,7 @@ public class ItemInfoUI : MonoBehaviour
         newItem.ItemID = shopItemInfo.itemID;
         newItem.Count = 1;
         newItem.GetDate = DateTime.Now;
-        GameDataManager.instance.userData.AddItem(shopItemInfo.buyPrice, newItem);
+        GameDataManager.instance.AddItem(shopItemInfo.buyPrice, newItem);
         InventoryUI.instance.RefreshUI();
         //MoneyUI.instance.RefreshUI();
         //shopItemInfo

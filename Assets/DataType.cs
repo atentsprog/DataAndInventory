@@ -65,7 +65,7 @@ public class ServerGameData
 [System.Serializable]
 [FirestoreData]
 public class CustomUser
-{
+{ 
     [SerializeField] private int gold;
     [SerializeField] private int userUID;
     [SerializeField] private int dia;
@@ -92,7 +92,6 @@ public class CustomUser
             inventoryItems = value;
         }
     }
-
 
     public override bool Equals(object obj)
     {
