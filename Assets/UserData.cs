@@ -32,6 +32,7 @@ public class UserData : MonoBehaviour
     public int Gold { get; internal set; }
     public object Dia { get; internal set; }
 
+
     [ContextMenu("SaveUserData")]
     private void Save()
     {

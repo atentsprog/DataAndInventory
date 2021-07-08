@@ -83,7 +83,8 @@ public class FirestoreManager : MonoBehaviour
         {
             dic[item.Item1] = item.Item2;
         }
-        SaveToCloud(collectionName, dic);
+        string docPath = collectionName + "/" + userID;
+        SaveToCloud(docPath, dic);
     }
 
     const string AsyncID = "AsyncID";
@@ -105,6 +106,35 @@ public class FirestoreManager : MonoBehaviour
         {
             //앱 삭제나 로그아웃 하기전까지 유지된다.
             auth.SignInAnonymouslyAsync().ContinueWithOnMainThread(HandleSignInWithUser);
+        }
+        else
+        {
+            // 3초 이내에 userID가 없으면 다시 익명 로그인을 시도하자.
+            if (loginWhenBlankUserIDhandle != null) //이전 요청이 있었다면 이전 요청을 멈추자.
+                StopCoroutine(loginWhenBlankUserIDhandle);
+
+            loginWhenBlankUserIDhandle = StartCoroutine(LoginWhenBlankUserIDCo());
+        }
+    }
+    Coroutine loginWhenBlankUserIDhandle;
+    private IEnumerator LoginWhenBlankUserIDCo()
+    {
+        if (string.IsNullOrEmpty(userID) == false)
+            yield break;
+
+        yield return new WaitForSeconds(3);
+        if (string.IsNullOrEmpty(userID))
+        {
+            if (Application.isEditor)
+            {
+#if UNITY_EDITOR
+                if (UnityEditor.EditorUtility.DisplayDialog("확인", "UserID가 없습니다. 다시 익명 로그인 하시겠습니까?"
+                    , "확인", "취소"))
+                {
+                    auth.SignInAnonymouslyAsync().ContinueWithOnMainThread(HandleSignInWithUser);
+                }
+#endif
+            }
         }
     }
 
@@ -253,7 +283,7 @@ public class FirestoreManager : MonoBehaviour
     {
         if (LogTaskCompletion(task, "Sign-in"))
         {
-            print($"{task.Result.DisplayName} signed in :{userID = task.Result.UserId}");
+            print($"{task.Result.DisplayName} signed in :{task.Result.UserId}");
             userID = task.Result.UserId;
             PlayerPrefs.SetString(AsyncID, userID);
             PlayerPrefs.Save();

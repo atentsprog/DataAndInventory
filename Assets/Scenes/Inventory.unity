@@ -1067,6 +1067,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1813957685}
   - component: {fileID: 1813957684}
+  - component: {fileID: 1813957687}
+  - component: {fileID: 1813957686}
   m_Layer: 0
   m_Name: UserData
   m_TagString: Untagged
@@ -1087,7 +1089,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryItems: []
-  dia: 0
+  userDataServer:
+    gold: 0
+    dia: 0
+    name: 
+    iD: 0
+    inventoryItems:
+    - uID: 0
+      iD: 0
+      count: 0
+      enchant: 0
+      getDate: 
+    - uID: 0
+      iD: 0
+      count: 0
+      enchant: 0
+      getDate: 
 --- !u!4 &1813957685
 Transform:
   m_ObjectHideFlags: 0
@@ -1102,6 +1119,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1813957686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813957683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81a54678038fefb4cb70480ab3eb1f26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1813957687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813957683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7337d066488bbe64280be69d2b00f257, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  userID: 
 --- !u!1 &2012931386 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4180513612630439722, guid: 73f73347c4bb90d449656b7672c64ed8, type: 3}
