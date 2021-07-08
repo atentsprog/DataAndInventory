@@ -1,4 +1,4 @@
-using Firebase;
+ï»¿using Firebase;
 using Firebase.Auth;
 using Firebase.Extensions;
 using Firebase.Firestore;
@@ -10,9 +10,64 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
+/// <summary>
+/////// Sample
+/// - SAve
+/// FirestoreManager.SaveToUserCloud("UserData", ("ë³€ìˆ˜2ê°œ ì €ì¥ A", "A"), ("ë³€ìˆ˜2ê°œ ì €ì¥ B", 11));
+///// Load
+/// FirestoreManager.LoadFromUserCloud("UserData", ds =>
+/// {
+///     print(ds.GetValue<string>("ë³€ìˆ˜2ê°œ ì €ì¥ A"));
+///     print(ds.GetValue<string>("ë³€ìˆ˜2ê°œ ì €ì¥ B"));
+/// });
+/// </summary>
 public class FirestoreManager : MonoBehaviour
 {
     public static FirestoreManager instance;
+
+    internal static Task LoadFromUserCloud(string collectionPath, string subPath, Action<DocumentSnapshot> p)
+    {
+        return instance._LoadFromUserCloud(collectionPath, p, subPath);
+    }
+
+    internal static Task LoadFromUserCloud(string collectionPath, Action<DocumentSnapshot> p)
+    {
+        return instance._LoadFromUserCloud(collectionPath, p);
+    }
+
+    internal static Task GetUserSnapshot(string collectionPath, string subPath, Action<DocumentSnapshot> p)
+    {
+        return instance._LoadFromUserCloud(collectionPath, p, subPath);
+    }
+
+
+    async Task _LoadFromUserCloud(string collectionPath, Action<DocumentSnapshot> p, string subPath = null)
+    {
+        if (string.IsNullOrEmpty(userID))
+        {
+            await Task.Run(() =>
+            {
+                while (true)
+                {
+                    Task.Delay(1000 / 60);
+                    if (string.IsNullOrEmpty(userID) == false)
+                        break;
+                }
+            });
+        }
+
+        string docPath = $"{collectionPath}/{userID}";
+        if(string.IsNullOrEmpty(subPath) == false)
+            docPath = $"{docPath}/{subPath}";
+
+        await db.Document(docPath)
+            .GetSnapshotAsync()
+            .ContinueWithOnMainThread(ss =>
+            {
+                p(ss.Result);
+            });
+    }
+
     private void Awake()
     {
         instance = this;
@@ -30,63 +85,77 @@ public class FirestoreManager : MonoBehaviour
 
     void Start()
     {
-        // ÆÄÀÌ¾îº£ÀÌ½º ·Î±×ÀÎ
+        // íŒŒì´ì–´ë² ì´ìŠ¤ ë¡œê·¸ì¸
         CheckAndFixDependencThenInitializeFirebase();
     }
 
 
-    public void LoadFromCloud(string docFullPath, Action<IDictionary<string, object>> ac)
+    public void LoadFromCloud(string docFullPath, Action<DocumentSnapshot> ac)
     {
         StartCoroutine(ReadDoc(db.Document(docFullPath), ac));
     }
-    public void SaveToCloud(string docFullPath, Dictionary<string, object> data)
+    public void SaveToCloud(string docFullPath, params (string, object)[] p)
     {
-        Debug.Log(DictToString(data));
-        StartCoroutine(WriteDoc(db.Document(docFullPath), data));
+        //Debug.Log(DictToString(data));
+        StartCoroutine(WriteDoc(db.Document(docFullPath), p));
     }
 
-    public void LoadFromUserCloud(string _collectionPath, string subDocPath = null, Action<IDictionary<string, object>> ac = null)
+    //public void LoadFromUserCloud(string _collectionPath, string subDocPath = null, Action<DocumentSnapshot> ac = null)
+    //{
+    //    if (IsExistLoginID() == false)
+    //        return;
+
+    //    string docPath = $"{_collectionPath}/{userID}";
+    //    if (string.IsNullOrEmpty(docPath) == false)
+    //        docPath += $"/{subDocPath}";
+    //    LoadFromCloud(docPath, ac);
+    //}
+
+    static public void SaveToUserCloud(string _collectionPath, params (string, object)[] p)
     {
-        if (IsExistLoginID() == false)
-            return;
+        instance._SaveToUserCloud(_collectionPath, p);
+    }
+    static public void SaveToUserCloud(string _collectionPath, string subDocPath = null, params (string, object)[] p)
+    {
+        instance._SaveToUserCloud(_collectionPath, subDocPath, p);
+    }
+
+
+    public void _SaveToUserCloud(string _collectionPath, params (string, object)[] p)
+    {
+        _SaveToUserCloud(_collectionPath, null, p);
+    }
+
+    public void _SaveToUserCloud(string _collectionPath, string subDocPath = null, params (string, object)[] p)
+    {
+        StartCoroutine(SaveToUserCloudCo(_collectionPath, subDocPath , p));
+    }
+
+    private IEnumerator SaveToUserCloudCo(string _collectionPath, string subDocPath, (string, object)[] p)
+    {
+        if(string.IsNullOrEmpty(userID))
+        {
+            Debug.Log("UserIDê°€ ì„¤ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. userIDê°€ ì„¤ì •ë ë•Œê¹Œì§€ ëŒ€ê¸°í•©ë‹ˆë‹¤");
+            while (string.IsNullOrEmpty(userID))
+            {
+                yield return null;
+            }
+        }
 
         string docPath = $"{_collectionPath}/{userID}";
         if (string.IsNullOrEmpty(docPath) == false)
             docPath += $"/{subDocPath}";
-        LoadFromCloud(docPath, ac);
-    }
 
-
-    public void SaveToUserCloud(string _collectionPath, string subDocPath = null, Dictionary<string, object> data = null)
-    {
-        if (IsExistLoginID() == false)
-            return;
-
-        string docPath = $"{_collectionPath}/{userID}";
-        if (string.IsNullOrEmpty(docPath) == false)
-            docPath += $"/{subDocPath}";
-
-        SaveToCloud(docPath, data);
+        SaveToCloud(docPath, p);
     }
 
     const string AsyncID = "AsyncID";
-    private bool IsExistLoginID()
-    {
-        if (string.IsNullOrEmpty(userID))
-        {
-            DebugLog("¾ÆÁ÷ ·Î±×ÀÎµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
-            SignInAnonymous();
-            return false;
-        }
-
-        return true;
-    }
 
     private void SignInAnonymous()
     {
-        if (PlayerPrefs.HasKey(AsyncID) == false) //ÀÍ¸í ·Î±×ÀÎÇÑÀûÀÌ ¾ø´Â°¡?
+        if (PlayerPrefs.HasKey(AsyncID) == false) //ìµëª… ë¡œê·¸ì¸í•œì ì´ ì—†ëŠ”ê°€?
         {
-            //¾Û »èÁ¦³ª ·Î±×¾Æ¿ô ÇÏ±âÀü±îÁö À¯ÁöµÈ´Ù.
+            //ì•± ì‚­ì œë‚˜ ë¡œê·¸ì•„ì›ƒ í•˜ê¸°ì „ê¹Œì§€ ìœ ì§€ëœë‹¤.
             auth.SignInAnonymouslyAsync().ContinueWithOnMainThread(HandleSignInWithUser);
         }
     }
@@ -148,10 +217,14 @@ public class FirestoreManager : MonoBehaviour
         }
     }
 
-    private IEnumerator WriteDoc(DocumentReference doc, IDictionary<string, object> data)
+    private IEnumerator WriteDoc(DocumentReference doc, params (string, object)[] p)
     {
-        Task setTask = doc.UpdateAsync(data);
-        //WaitForTaskCompletion Å¬·¡½º ¾øÀÌ WaitUntil·Î ±â´Ù·Áµµ µÇÁö¸¸ ¿¹¿Ü ¹ß»ıÇßÀ»¶§ ·Î±× È®ÀÎÇÏ±â À§ÇØ¼­ Ä¿½ºÅÏ yieldÅ¬·¡½º »ç¿ë.
+        Dictionary<string, object> dic = new Dictionary<string, object>();
+        foreach (var item in p)
+            dic[item.Item1] = item.Item2;
+
+        Task setTask = doc.UpdateAsync(dic);
+        //WaitForTaskCompletion í´ë˜ìŠ¤ ì—†ì´ WaitUntilë¡œ ê¸°ë‹¤ë ¤ë„ ë˜ì§€ë§Œ ì˜ˆì™¸ ë°œìƒí–ˆì„ë•Œ ë¡œê·¸ í™•ì¸í•˜ê¸° ìœ„í•´ì„œ ì»¤ìŠ¤í„´ yieldí´ë˜ìŠ¤ ì‚¬ìš©.
         //yield return new WaitUntil(() => setTask.IsCompleted); 
         yield return new WaitForTaskCompletion(this, setTask);
         if (!(setTask.IsFaulted || setTask.IsCanceled))
@@ -162,11 +235,14 @@ public class FirestoreManager : MonoBehaviour
         {
             ResultFromCloud = "WriteDoc Error";
 
-            //¾ÆÁ÷ µ¥ÀÌÅÍ ¾ø´Â °æ¿ì UpdateÇÒ ¼ö ¾ø´Ù. set½ÃµµÇÏÀÚ
-            StartCoroutine(SetDoc(doc, data));
+            ////ì•„ì§ ë°ì´í„° ì—†ëŠ” ê²½ìš° Updateí•  ìˆ˜ ì—†ë‹¤. setì‹œë„í•˜ì
+            //Dictionary<string, object> docData = new Dictionary<string, object>(1);
+            //docData[field] = data;
+
+            StartCoroutine(SetDoc(doc, dic));
         }
     }
-    private IEnumerator SetDoc(DocumentReference doc, IDictionary<string, object> data)
+    private IEnumerator SetDoc(DocumentReference doc, object data)
     {
         Task setTask = doc.SetAsync(data);
         yield return new WaitForTaskCompletion(this, setTask);
@@ -180,15 +256,18 @@ public class FirestoreManager : MonoBehaviour
         }
     }
 
-    private IEnumerator ReadDoc(DocumentReference doc, Action<IDictionary<string, object>> ac)
+    private IEnumerator ReadDoc(DocumentReference doc, Action<DocumentSnapshot> ac)
     {
         Task<DocumentSnapshot> getTask = doc.GetSnapshotAsync();
         yield return new WaitForTaskCompletion(this, getTask);
         if (!(getTask.IsFaulted || getTask.IsCanceled))
         {
             DocumentSnapshot snap = getTask.Result;
-            IDictionary<string, object> resultData = snap.ToDictionary();
-            ac(resultData);
+
+            ac(snap);
+
+            //IDictionary<string, object> resultData = snap.ToDictionary();
+            //ac(resultData);
             ResultFromCloud = "Ok: ";
         }
         else
@@ -245,7 +324,7 @@ public class FirestoreManager : MonoBehaviour
 
     public void SignOut()
     {
-        print($"{userID}¸¦ ·Î±×¾Æ¿ô ÇÕ´Ï´Ù");
+        print($"{userID}ë¥¼ ë¡œê·¸ì•„ì›ƒ í•©ë‹ˆë‹¤");
 
         auth.SignOut();
         PlayerPrefs.DeleteKey(AsyncID);
@@ -326,4 +405,5 @@ public class FirestoreManager : MonoBehaviour
     {
         Debug.Log($"DebugLog:{log}");
     }
+
 }

@@ -1,7 +1,9 @@
-﻿using Firebase.Firestore;
+﻿using Firebase.Extensions;
+using Firebase.Firestore;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 [System.Serializable]
@@ -33,10 +35,10 @@ public class UserData : MonoBehaviour
             MoneyUI.instance?.RefreshUI();
         }
     }
-
+    const string UserDataCollection = "UserData"; // UserData콜렉션 이름.
     private void SaveGoldToCloud()
     {
-        FirestoreData.SaveToUserCloud("UserInfo", "Gold", gold);
+        FirestoreManager.SaveToUserCloud(UserDataCollection, ("Gold", gold));
     }
 
     public int dia;
@@ -59,41 +61,20 @@ public class UserData : MonoBehaviour
     
     private void Load()
     {
-        FirestoreData.LoadFromUserCloud("UserInfo", LoadCallBack);
-        //Gold = 
-        //if (PlayerPrefs.HasKey("gold"))
-        //{
-        //    //Gold = PlayerPrefs.GetInt("gold");
-        //    dia = PlayerPrefs.GetInt("dia");
-
-        //    int itemCount = PlayerPrefs.GetInt("inventoryItems.Count");
-        //    for (int i = 0; i < itemCount; i++)
-        //    {
-        //        var loadItem = new InventoryItemInfo();
-        //        loadItem.itemID = PlayerPrefs.GetInt("inventoryItems.itemID" + i);
-        //        loadItem.count = PlayerPrefs.GetInt("inventoryItems.count" + i);
-        //        loadItem.getDate = PlayerPrefs.GetString("inventoryItems.getDate" + i);
-        //        inventoryItems.Add(loadItem);
-        //    }
-        //}
-        //else
-        //{
-        //    Gold = 1100;
-        //    dia = 120;
-        //}
+        FirestoreManager.LoadFromUserCloud(UserDataCollection, LoadCallBack);
     }
 
-    private void LoadCallBack(IDictionary<string, object> obj)
+    private void LoadCallBack(DocumentSnapshot snapshop)
     {
-        if(obj.ContainsKey("Gold"))
-            Gold = Convert.ToInt32(obj["Gold"]);
-        else
-            Gold = 1100;
+        snapshop.TryGetValue("MyUserData", out CustomUser customUser);
+        if (customUser == null)
+        {
+            customUser = new CustomUser();
+            customUser.Gold = 1100;
+            customUser.Dia = 10;
+        }
 
-        if (obj.ContainsKey("Dia"))
-            dia = Convert.ToInt32(obj["Dia"]);
-        else
-            dia = 120;
+        print(customUser);
     }
 
     public static void SetGold(int gold)
@@ -107,8 +88,9 @@ public class UserData : MonoBehaviour
         }
     }
 
-    [ContextMenu("SaveUserData")]
-    private void Save()
+
+    [ContextMenu("클래스 저장")]
+    private void SaveClass()
     {
         CustomUser customUser = new CustomUser();
         customUser.Name = "a";
@@ -128,63 +110,6 @@ public class UserData : MonoBehaviour
             GetDate = DateTime.Now
         });
 
-        FirestoreData.SaveToUserCloud("UserData", "User1", customUser);
-
-        //PlayerPrefs.SetInt("inventoryItems.Count", inventoryItems.Count);
-        //for (int i = 0; i < inventoryItems.Count; i++)
-        //{
-        //    var saveItem = inventoryItems[i];
-        //    PlayerPrefs.SetInt("inventoryItems.itemID" + i, saveItem.itemID);
-        //    PlayerPrefs.SetInt("inventoryItems.count" + i, saveItem.count);
-        //    PlayerPrefs.SetString("inventoryItems.getDate" + i, saveItem.getDate);
-        //}
-        
-
-        //PlayerPrefs.SetInt("gold", Gold);
-        //PlayerPrefs.SetInt("dia", dia);
-        //PlayerPrefs.Save();
-    }
-
-
-}
-
-[FirestoreData]
-public sealed class InventoryItemCloud
-{
-    [FirestoreProperty]
-    public int ItemUID { get; set; }
-    [FirestoreProperty]
-    public int Count { get; set; }
-    [FirestoreProperty]
-    public DateTime GetDate { get; set; }
-
-}
-[FirestoreData]
-public sealed class CustomUser
-{
-    [FirestoreProperty]
-    public int UserUID { get; set; }
-
-    [FirestoreProperty]
-    public int Gold { get; set; }
-    [FirestoreProperty]
-    public int Dia { get; set; }
-    [FirestoreProperty] public string Name { get; set; }
-    [FirestoreProperty] public List<InventoryItemCloud> InventoryItems { get; set; }
-
-    public override bool Equals(object obj)
-    {
-        if (!(obj is CustomUser))
-        {
-            return false;
-        }
-
-        CustomUser other = (CustomUser)obj;
-        return Gold == other.Gold && Name == other.Name;
-    }
-
-    public override int GetHashCode()
-    {
-        return 0;
+        FirestoreManager.SaveToUserCloud(UserDataCollection, ("MyUserData", customUser));
     }
 }
