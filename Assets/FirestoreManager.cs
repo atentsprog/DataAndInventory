@@ -1,4 +1,4 @@
-using Firebase;
+ï»¿using Firebase;
 using Firebase.Auth;
 using Firebase.Extensions;
 using Firebase.Firestore;
@@ -30,7 +30,7 @@ public class FirestoreManager : MonoBehaviour
 
     void Start()
     {
-        // ÆÄÀÌ¾îº£ÀÌ½º ·Î±×ÀÎ
+        // íŒŒì´ì–´ë² ì´ìŠ¤ ë¡œê·¸ì¸
         CheckAndFixDependencThenInitializeFirebase();
     }
 
@@ -74,7 +74,7 @@ public class FirestoreManager : MonoBehaviour
     {
         if (string.IsNullOrEmpty(userID))
         {
-            DebugLog("¾ÆÁ÷ ·Î±×ÀÎµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            DebugLog("ì•„ì§ ë¡œê·¸ì¸ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
             SignInAnonymous();
             return false;
         }
@@ -84,9 +84,9 @@ public class FirestoreManager : MonoBehaviour
 
     private void SignInAnonymous()
     {
-        if (PlayerPrefs.HasKey(AsyncID) == false) //ÀÍ¸í ·Î±×ÀÎÇÑÀûÀÌ ¾ø´Â°¡?
+        //if (PlayerPrefs.HasKey(AsyncID) == false) //ìµëª… ë¡œê·¸ì¸í•œì ì´ ì—†ëŠ”ê°€?
         {
-            //¾Û »èÁ¦³ª ·Î±×¾Æ¿ô ÇÏ±âÀü±îÁö À¯ÁöµÈ´Ù.
+            //ì•± ì‚­ì œë‚˜ ë¡œê·¸ì•„ì›ƒ í•˜ê¸°ì „ê¹Œì§€ ìœ ì§€ëœë‹¤.
             auth.SignInAnonymouslyAsync().ContinueWithOnMainThread(HandleSignInWithUser);
         }
     }
@@ -151,7 +151,7 @@ public class FirestoreManager : MonoBehaviour
     private IEnumerator WriteDoc(DocumentReference doc, IDictionary<string, object> data)
     {
         Task setTask = doc.UpdateAsync(data);
-        //WaitForTaskCompletion Å¬·¡½º ¾øÀÌ WaitUntil·Î ±â´Ù·Áµµ µÇÁö¸¸ ¿¹¿Ü ¹ß»ıÇßÀ»¶§ ·Î±× È®ÀÎÇÏ±â À§ÇØ¼­ Ä¿½ºÅÏ yieldÅ¬·¡½º »ç¿ë.
+        //WaitForTaskCompletion í´ë˜ìŠ¤ ì—†ì´ WaitUntilë¡œ ê¸°ë‹¤ë ¤ë„ ë˜ì§€ë§Œ ì˜ˆì™¸ ë°œìƒí–ˆì„ë•Œ ë¡œê·¸ í™•ì¸í•˜ê¸° ìœ„í•´ì„œ ì»¤ìŠ¤í„´ yieldí´ë˜ìŠ¤ ì‚¬ìš©.
         //yield return new WaitUntil(() => setTask.IsCompleted); 
         yield return new WaitForTaskCompletion(this, setTask);
         if (!(setTask.IsFaulted || setTask.IsCanceled))
@@ -162,7 +162,7 @@ public class FirestoreManager : MonoBehaviour
         {
             ResultFromCloud = "WriteDoc Error";
 
-            //¾ÆÁ÷ µ¥ÀÌÅÍ ¾ø´Â °æ¿ì UpdateÇÒ ¼ö ¾ø´Ù. set½ÃµµÇÏÀÚ
+            //ì•„ì§ ë°ì´í„° ì—†ëŠ” ê²½ìš° Updateí•  ìˆ˜ ì—†ë‹¤. setì‹œë„í•˜ì
             StartCoroutine(SetDoc(doc, data));
         }
     }
@@ -245,7 +245,7 @@ public class FirestoreManager : MonoBehaviour
 
     public void SignOut()
     {
-        print($"{userID}¸¦ ·Î±×¾Æ¿ô ÇÕ´Ï´Ù");
+        print($"{userID}ë¥¼ ë¡œê·¸ì•„ì›ƒ í•©ë‹ˆë‹¤");
 
         auth.SignOut();
         PlayerPrefs.DeleteKey(AsyncID);

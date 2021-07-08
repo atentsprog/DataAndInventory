@@ -85,6 +85,9 @@ public class UserData : MonoBehaviour
 
     private void LoadCallBack(IDictionary<string, object> obj)
     {
+        if (obj == null)
+            return;
+
         if(obj.ContainsKey("Gold"))
             Gold = Convert.ToInt32(obj["Gold"]);
         else
