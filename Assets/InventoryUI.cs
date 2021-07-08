@@ -11,8 +11,11 @@ public class InventoryUI : MonoBehaviour
         instance = this;
     }
     public InventoryItem itemBase;
-    void Start()
+    IEnumerator Start()
     {
+        while (GameDataManager.instance.dataStateType != DataStateType.LoadComplete)
+            yield return null;
+
         RefreshUI();
     }
 
@@ -22,8 +25,8 @@ public class InventoryUI : MonoBehaviour
         childItem.ForEach(x => Destroy(x));
         childItem.Clear();
 
-        //UserData.instance.inventoryItems
-        var items = UserData.instance.inventoryItems;
+
+        var items = GameDataManager.instance.userData.InventoryItems;
         itemBase.gameObject.SetActive(true);
         foreach (InventoryItemInfo item in items)
         {

@@ -7,27 +7,37 @@ using UnityEngine;
 
 [System.Serializable]
 [FirestoreData]
-public sealed class InventoryItemCloud
+public sealed class InventoryItemInfo
 {
     [SerializeField] int itemUID;
+    [SerializeField] int itemID;
     [SerializeField] private int count;
     [SerializeField] private DateTime getDate;
 
     [FirestoreProperty]
     public int ItemUID { get { return itemUID; } set { itemUID = value; } }
+
+    [FirestoreProperty]
+    public int ItemID { get { return itemID; } set { itemID = value; } }
     [FirestoreProperty]
     public int Count { get => count; set => count = value; }
+
+    internal ShopItemInfo GetShopItemInfo()
+    {
+        return ShopItemData.instance.shopItems.Find(x => x.itemID == itemID);
+    }
+
     [FirestoreProperty]
     public DateTime GetDate { get => getDate; set => getDate = value; }
 
     public override bool Equals(object obj)
     {
-        if (!(obj is InventoryItemCloud))
+        if (!(obj is InventoryItemInfo))
         {
             return false;
         }
 
-        InventoryItemCloud other = (InventoryItemCloud)obj;
+        InventoryItemInfo other = (InventoryItemInfo)obj;
         return ItemUID == other.ItemUID;
     }
     public override int GetHashCode()
@@ -44,17 +54,27 @@ public sealed class InventoryItemCloud
 
 [System.Serializable]
 [FirestoreData]
+public class ServerGameData
+{
+    [SerializeField] private int lastItemUID;
+
+    [FirestoreProperty]
+    public int LastItemUID { get => lastItemUID; set => lastItemUID = value; }
+}
+
+[System.Serializable]
+[FirestoreData]
 public class CustomUser
 {
     [SerializeField] private int gold;
     [SerializeField] private int userUID;
     [SerializeField] private int dia;
     [SerializeField] private string name;
-    [SerializeField] private List<InventoryItemCloud> inventoryItems;
+    [SerializeField] private List<InventoryItemInfo> inventoryItems;
 
     public CustomUser()
     {
-        InventoryItems = new List<InventoryItemCloud>();
+        InventoryItems = new List<InventoryItemInfo>();
     }
     [FirestoreProperty]
     public int UserUID { get => userUID; set => userUID = value; }
@@ -67,7 +87,12 @@ public class CustomUser
     [FirestoreProperty] public string Name { get => name; set => name = value; }
 
     [FirestoreProperty]
-    public List<InventoryItemCloud> InventoryItems { get => inventoryItems; set => inventoryItems = value; }
+    public List<InventoryItemInfo> InventoryItems { get => inventoryItems; 
+        set { 
+            inventoryItems = value;
+        }
+    }
+
 
     public override bool Equals(object obj)
     {

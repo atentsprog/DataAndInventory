@@ -30,9 +30,7 @@ public class ItemInfoUI : MonoBehaviour
     {
         print("ItemSell");
 
-        UserData.instance.Gold += shopItemInfo.sellPrice;
-
-        UserData.instance.inventoryItems.Remove(inventoryItemInfo);
+        GameDataManager.instance.SellItem(shopItemInfo.sellPrice, inventoryItemInfo);
         InventoryUI.instance.RefreshUI();
     }
     internal void ShowShopItem(ShopItemInfo shopItemInfo)
@@ -76,12 +74,12 @@ public class ItemInfoUI : MonoBehaviour
     {
         print("ItemBuy");
 
-        UserData.instance.Gold -= shopItemInfo.buyPrice;
         var newItem = new InventoryItemInfo();
-        newItem.itemID = shopItemInfo.itemID;
-        newItem.count = 1;
-        newItem.getDate = DateTime.Now.ToString();
-        UserData.instance.inventoryItems.Add(newItem);
+        newItem.ItemUID = GameDataManager.GetNewItemID();
+        newItem.ItemID = shopItemInfo.itemID;
+        newItem.Count = 1;
+        newItem.GetDate = DateTime.Now;
+        GameDataManager.instance.userData.AddItem(shopItemInfo.buyPrice, newItem);
         InventoryUI.instance.RefreshUI();
         //MoneyUI.instance.RefreshUI();
         //shopItemInfo

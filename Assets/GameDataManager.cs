@@ -1,13 +1,27 @@
 ﻿using Firebase.Extensions;
 using Firebase.Firestore;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
+public enum DataStateType
+{
+    NotInit,
+    LoadComplete
+}
 public class GameDataManager : MonoBehaviour
 {
     public CustomUser userData;
+    public ServerGameData serverGameData;
+
+    public static GameDataManager instance;
+    public DataStateType dataStateType;
+    private void Awake()
+    {
+        instance = this;
+    }
     IEnumerator Start()
     {
         print("데이타 로드중...");
@@ -15,7 +29,7 @@ public class GameDataManager : MonoBehaviour
         Task task = LoadUserDataTimeCheck();
 
         yield return new WaitUntil(() => task.IsCompleted);
-
+        dataStateType = DataStateType.LoadComplete;
         print($"데이타 로드 완료!, {userData.Gold}");
     }
 
@@ -25,9 +39,15 @@ public class GameDataManager : MonoBehaviour
         float startTime = Time.realtimeSinceStartup;
         Task task = FirestoreManager.LoadFromUserCloud("UserData", ds =>
         {
+            if (ds.TryGetValue("GameData", out serverGameData) == false)
+            {
+                print("서버에 GameData 값 없어서 초기값 할당함");
+                serverGameData = new ServerGameData();
+            }
+
             if (ds.TryGetValue("MyUserData", out userData) == false)
             {
-                print("서버에 값 없어서 초기값 할당함");
+                print("서버에 MyUserData 값 없어서 초기값 할당함");
                 userData = new CustomUser();
                 userData.Gold = 1000;
                 userData.Dia = 10;
@@ -35,12 +55,13 @@ public class GameDataManager : MonoBehaviour
             float timeTaken = Time.realtimeSinceStartup - startTime;
             print($"{timeTaken}초 소요됨");
             
+
+
             print(userData);
         });
 
         return task;
     }
-
 
     [ContextMenu("유저 데이터 로드")]
     void LoadUserData()
@@ -83,6 +104,8 @@ public class GameDataManager : MonoBehaviour
         });
     }
 
+
+
     [ContextMenu("변수 1개 저장")]
     private void SaveVarialble()
     {
@@ -111,6 +134,47 @@ public class GameDataManager : MonoBehaviour
                  print(ss.GetValue<string>("TempVarialble"));
             }
         );
+    }
+
+
+
+    internal static int GetNewItemID()
+    {
+        return instance._GetNewItemID();
+    }
+    int _GetNewItemID()
+    {
+        serverGameData.LastItemUID++;
+
+        FirestoreManager.SaveToUserCloud("UserData", ("GameData", serverGameData));
+        return serverGameData.LastItemUID;
+    }
+
+    public static void SetGold(int gold)
+    {
+        PlayerPrefs.SetInt("gold", gold);
+        PlayerPrefs.Save();
+        if (instance)
+        {
+            instance.userData.Gold = gold;
+        }
+    }
+    internal void SellItem(int sellPrice, InventoryItemInfo inventoryItemInfo)
+    {
+        userData.Gold += sellPrice;
+        userData.InventoryItems.Remove(inventoryItemInfo);
+
+    }
+    internal void AddItem(int buyPrice, InventoryItemInfo newItem)
+    {
+        userData.Gold -= buyPrice;
+        userData.InventoryItems.Add(newItem);
+        SaveToServer(("MyUserData", userData));
+    }
+
+    public void SaveToServer(params (string, object)[] p)
+    {
+        FirestoreManager.SaveToUserCloud("UserData", p);
     }
 
 }
