@@ -11,10 +11,7 @@ public class InventoryUI : MonoBehaviour
         instance = this;
     }
     public InventoryItem itemBase;
-    void Start()
-    {
-        RefreshUI();
-    }
+
 
     List<GameObject> childItem = new List<GameObject>();
     internal void RefreshUI()
@@ -22,8 +19,7 @@ public class InventoryUI : MonoBehaviour
         childItem.ForEach(x => Destroy(x));
         childItem.Clear();
 
-        //UserData.instance.inventoryItems
-        var items = UserData.instance.inventoryItems;
+        var items = UserData.instance.userDataServer.InventoryItems;
         itemBase.gameObject.SetActive(true);
         foreach (InventoryItemServer item in items)
         {

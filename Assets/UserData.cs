@@ -8,10 +8,6 @@ public class UserData : MonoBehaviour
 {
     public static UserData instance;
 
-    public int Gold { get; internal set; }
-
-    public List<InventoryItemServer> inventoryItems;
-
     private void Awake()
     {
         instance = this;
@@ -31,6 +27,8 @@ public class UserData : MonoBehaviour
             }
 
             isLoadComplete = true;
+            InventoryUI.instance.RefreshUI();
+            MoneyUI.instance.RefreshUI();
         });
     }
 
