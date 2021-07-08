@@ -23,7 +23,7 @@ public class EditorOptionConfig : EditorWindow
             if (GUILayout.Button("Set Gold"))
             {
                 int gold = int.Parse(goldText);
-                UserData.SetGold(gold);
+                //UserData.SetGold(gold);
             }
         }
         GUILayout.EndHorizontal();

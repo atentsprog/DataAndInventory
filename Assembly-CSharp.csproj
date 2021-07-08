@@ -104,6 +104,7 @@
     <Compile Include="Assets\ShopUI.cs" />
     <Compile Include="Assets\Scripts\Common\ChangeTextureOffset.cs" />
     <Compile Include="Assets\InventoryItem.cs" />
+    <Compile Include="Assets\FirestoreManager.cs" />
     <Compile Include="Assets\ZG\ZG.Core\Type\IType.cs" />
     <Compile Include="Assets\ZG\ZG.Core\Type\Impl\DoubleType.cs" />
     <Compile Include="Assets\UserData.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Assets\ItemInfoUI.cs" />
     <Compile Include="Assets\ZG\ZG.Core\Type\Impl\UShortType.cs" />
     <Compile Include="Assets\ZG\ZG.Core\Exception\RequireTypeAttributeException.cs" />
+    <Compile Include="Assets\FirestoreData.cs" />
     <Compile Include="Assets\ZG\ZG.Core\Unity\ZGSettingObject.cs" />
     <Compile Include="Assets\ZG\ZG.Core\IO\FileWriter\FileWriter.cs" />
     <Compile Include="Assets\Scripts\Common\ListItemMonobehaviour.cs" />
@@ -158,8 +160,6 @@
     <Compile Include="Assets\ZG\ZG.Core\IO\FileReader\IFileReader.cs" />
     <Compile Include="Assets\Scripts\Common\EditorButtonHelper.cs" />
     <Compile Include="Assets\Scripts\Common\Util.cs" />
-    <Compile Include="Assets\FirestoreManager.cs" />
-    <Compile Include="Assets\FirestoreData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Firebase\Plugins\x86_64\FirebaseCppFirestore.dll" />
@@ -403,14 +403,8 @@
     <Reference Include="UnityEditor.UnityConnectModule">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.13f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@2.0.0\Runtime\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Firebase.App">
-      <HintPath>Assets\Firebase\Plugins\Firebase.App.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Tasks">
-      <HintPath>Assets\Parse\Plugins\dotNet45\Unity.Tasks.dll</HintPath>
+    <Reference Include="Firebase.Firestore">
+      <HintPath>Assets\Firebase\Plugins\Firebase.Firestore.dll</HintPath>
     </Reference>
     <Reference Include="Firebase.TaskExtension">
       <HintPath>Assets\Firebase\Plugins\Firebase.TaskExtension.dll</HintPath>
@@ -418,17 +412,23 @@
     <Reference Include="Google.MiniJson">
       <HintPath>Assets\Firebase\Plugins\Google.MiniJson.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Tasks">
+      <HintPath>Assets\Parse\Plugins\dotNet45\Unity.Tasks.dll</HintPath>
+    </Reference>
     <Reference Include="Firebase.Platform">
       <HintPath>Assets\Firebase\Plugins\Firebase.Platform.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Compat">
       <HintPath>Assets\Parse\Plugins\dotNet45\Unity.Compat.dll</HintPath>
     </Reference>
+    <Reference Include="Firebase.App">
+      <HintPath>Assets\Firebase\Plugins\Firebase.App.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@2.0.0\Runtime\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Firebase.Auth">
       <HintPath>Assets\Firebase\Plugins\Firebase.Auth.dll</HintPath>
-    </Reference>
-    <Reference Include="Firebase.Firestore">
-      <HintPath>Assets\Firebase\Plugins\Firebase.Firestore.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.13f1\Editor\Data\PlaybackEngines\iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

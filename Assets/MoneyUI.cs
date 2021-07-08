@@ -18,11 +18,12 @@ public class MoneyUI : MonoBehaviour
     void Start()
     {
         RefreshUI();
+
     }
 
     public void RefreshUI()
     {
-        goldText.text = UserData.instance.Gold.ToString();
-        diaText.text = UserData.instance.dia.ToString();
+        //goldText.text = UserData.instance.Gold.ToString();
+        //diaText.text = UserData.instance.Dia.ToString();
     }
 }

@@ -23,171 +23,90 @@ public class UserData : MonoBehaviour
 
     public List<InventoryItemInfo> inventoryItems;
 
-    int gold;
-    public int Gold
-    {
-        get { return gold; }
-        set { gold = value;
-            // 구글에 변경된 골드 저장.
-            SaveGoldToCloud();
-            MoneyUI.instance?.RefreshUI();
-        }
-    }
-
-    private void SaveGoldToCloud()
-    {
-        FirestoreData.SaveToUserCloud("UserInfo", "Gold", gold);
-    }
-
-    public int dia;
     private void Awake()
     {
         instance = this;
     }
+    public UserDataServer userDataServer;
 
-    private IEnumerator Start()
-    {
-        while (string.IsNullOrEmpty(FirestoreManager.instance.userID))
-            yield return null;
-
-        Load();
-    }
-    private void OnDestroy()
-    {
-        //Save();
-    }    
-    
-    private void Load()
-    {
-        FirestoreData.LoadFromUserCloud("UserInfo", LoadCallBack);
-        //Gold = 
-        //if (PlayerPrefs.HasKey("gold"))
-        //{
-        //    //Gold = PlayerPrefs.GetInt("gold");
-        //    dia = PlayerPrefs.GetInt("dia");
-
-        //    int itemCount = PlayerPrefs.GetInt("inventoryItems.Count");
-        //    for (int i = 0; i < itemCount; i++)
-        //    {
-        //        var loadItem = new InventoryItemInfo();
-        //        loadItem.itemID = PlayerPrefs.GetInt("inventoryItems.itemID" + i);
-        //        loadItem.count = PlayerPrefs.GetInt("inventoryItems.count" + i);
-        //        loadItem.getDate = PlayerPrefs.GetString("inventoryItems.getDate" + i);
-        //        inventoryItems.Add(loadItem);
-        //    }
-        //}
-        //else
-        //{
-        //    Gold = 1100;
-        //    dia = 120;
-        //}
-    }
-
-    private void LoadCallBack(IDictionary<string, object> obj)
-    {
-        if (obj == null)
-            return;
-
-        if(obj.ContainsKey("Gold"))
-            Gold = Convert.ToInt32(obj["Gold"]);
-        else
-            Gold = 1100;
-
-        if (obj.ContainsKey("Dia"))
-            dia = Convert.ToInt32(obj["Dia"]);
-        else
-            dia = 120;
-    }
-
-    public static void SetGold(int gold)
-    {
-        PlayerPrefs.SetInt("gold", gold);
-        PlayerPrefs.Save();
-        if(instance)
-        {
-            instance.Gold = gold;
-            //MoneyUI.instance.RefreshUI();
-        }
-    }
+    public int Gold { get; internal set; }
+    public object Dia { get; internal set; }
 
     [ContextMenu("SaveUserData")]
     private void Save()
     {
-        CustomUser customUser = new CustomUser();
-        customUser.Name = "a";
-        customUser.Gold = 1;
-        customUser.Dia = 2;
-        customUser.InventoryItems = new List<InventoryItemCloud>();
-        customUser.InventoryItems.Add(new InventoryItemCloud()
+        userDataServer = new UserDataServer();
+        userDataServer.Gold = 1;
+        userDataServer.Dia = 2;
+        userDataServer.InventoryItems = new List<InventoryItemServer>();
+        userDataServer.InventoryItems.Add(new InventoryItemServer()
         {
-            ItemUID = 1,
-            Count = 2,
+            ID = 1,
+            UID = 1,
+            Count = 1,
+            GetDate = DateTime.Now.AddDays(-7)
+        });
+        userDataServer.InventoryItems.Add(new InventoryItemServer()
+        {
+            ID = 1,
+            UID = 2,
+            Count = 4,
             GetDate = DateTime.Now
         });
-        customUser.InventoryItems.Add(new InventoryItemCloud()
-        {
-            ItemUID = 2,
-            Count = 3,
-            GetDate = DateTime.Now
-        });
-
-        FirestoreData.SaveToUserCloud("UserData", "User1", customUser);
-
-        //PlayerPrefs.SetInt("inventoryItems.Count", inventoryItems.Count);
-        //for (int i = 0; i < inventoryItems.Count; i++)
-        //{
-        //    var saveItem = inventoryItems[i];
-        //    PlayerPrefs.SetInt("inventoryItems.itemID" + i, saveItem.itemID);
-        //    PlayerPrefs.SetInt("inventoryItems.count" + i, saveItem.count);
-        //    PlayerPrefs.SetString("inventoryItems.getDate" + i, saveItem.getDate);
-        //}
-        
-
-        //PlayerPrefs.SetInt("gold", Gold);
-        //PlayerPrefs.SetInt("dia", dia);
-        //PlayerPrefs.Save();
+        Dictionary<string, object> dic = new Dictionary<string, object>();
+        dic["MyUserInfo"] = userDataServer;
+        FirestoreData.SaveToUserCloud("UserInfo", dic);
     }
+}
+[System.Serializable]
+[FirestoreData]
+public sealed class UserDataServer
+{
+    [SerializeField] private int gold;
+    [SerializeField] private int dia;
+    [SerializeField] private string name;
+    [SerializeField] private int iD;
+    [SerializeField] private List<InventoryItemServer> inventoryItems;
 
+    [FirestoreProperty] public int Gold { get { return gold; } set { gold = value; } }
 
+    [FirestoreProperty] public int Dia { get => dia; set => dia = value; }
+    [FirestoreProperty] public string Name { get => name; set => name = value; }
+    [FirestoreProperty] public int ID { get => iD; set => iD = value; }
+    [FirestoreProperty]
+    public List<InventoryItemServer> InventoryItems { get => inventoryItems; set => inventoryItems = value; }
 }
 
+[System.Serializable]
 [FirestoreData]
-public sealed class InventoryItemCloud
+public sealed class InventoryItemServer
 {
-    [FirestoreProperty]
-    public int ItemUID { get; set; }
-    [FirestoreProperty]
-    public int Count { get; set; }
-    [FirestoreProperty]
-    public DateTime GetDate { get; set; }
+    [SerializeField] private int uID;
+    [SerializeField] private int iD;
+    [SerializeField] private int count;
+    [SerializeField] private int enchant;
+    [SerializeField] private string getDate;
 
-}
-[FirestoreData]
-public sealed class CustomUser
-{
-    [FirestoreProperty]
-    public int UserUID { get; set; }
 
-    [FirestoreProperty]
-    public int Gold { get; set; }
-    [FirestoreProperty]
-    public int Dia { get; set; }
-    [FirestoreProperty] public string Name { get; set; }
-    [FirestoreProperty] public List<InventoryItemCloud> InventoryItems { get; set; }
+    [FirestoreProperty] public int UID { get => uID; set => uID = value; }
+    [FirestoreProperty] public int ID { get => iD; set => iD = value; }
+    [FirestoreProperty] public int Count { get => count; set => count = value; }
+    [FirestoreProperty] public int Enchant { get => enchant; set => enchant = value; }
+    [FirestoreProperty] public DateTime GetDate { get => DateTime.Parse(getDate); set => getDate = value.ToLongDateString(); }
 
     public override bool Equals(object obj)
     {
-        if (!(obj is CustomUser))
+        if (!(obj is InventoryItemServer))
         {
             return false;
         }
 
-        CustomUser other = (CustomUser)obj;
-        return Gold == other.Gold && Name == other.Name;
+        InventoryItemServer other = (InventoryItemServer)obj;
+        return UID == other.UID;
     }
 
     public override int GetHashCode()
     {
-        return 0;
+        return UID;
     }
 }
