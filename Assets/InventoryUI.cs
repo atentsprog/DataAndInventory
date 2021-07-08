@@ -25,7 +25,7 @@ public class InventoryUI : MonoBehaviour
         //UserData.instance.inventoryItems
         var items = UserData.instance.inventoryItems;
         itemBase.gameObject.SetActive(true);
-        foreach (InventoryItemInfo item in items)
+        foreach (InventoryItemServer item in items)
         {
             var newItem = Instantiate(itemBase, itemBase.transform.parent); // <- 정상
             newItem.Init(item);

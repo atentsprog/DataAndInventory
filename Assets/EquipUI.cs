@@ -15,7 +15,7 @@ public class EquipUI : MonoBehaviour
         instance = this;
     }
 
-    internal void SetEquipItem(InventoryItemInfo inventoryItemInfo)
+    internal void SetEquipItem(InventoryItemServer inventoryItemInfo)
     {
         ShopItemInfo shopItemInfo = inventoryItemInfo.GetShopItemInfo();
 

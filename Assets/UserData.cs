@@ -4,33 +4,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class InventoryItemInfo
-{
-    public int itemID;
-    public int count;
-    public string getDate; //획득한 시간.
-
-    internal ShopItemInfo GetShopItemInfo()
-    {
-        return ShopItemData.instance.shopItems.Find(x => x.itemID == itemID);
-    }
-}
-
 public class UserData : MonoBehaviour
 {
     public static UserData instance;
 
-    public List<InventoryItemInfo> inventoryItems;
+    public int Gold { get; internal set; }
+
+    public List<InventoryItemServer> inventoryItems;
 
     private void Awake()
     {
         instance = this;
     }
     public UserDataServer userDataServer;
-
-    public int Gold { get; internal set; }
-    public object Dia { get; internal set; }
 
 
     [ContextMenu("SaveUserData")]
@@ -60,10 +46,26 @@ public class UserData : MonoBehaviour
         FirestoreManager.SaveToUserServer("UserInfo", ("MyUserInfo", userDataServer));
     }
 
+
     [ContextMenu("변수 2개 저장")]
     private void Save2Variables()
     {
         FirestoreManager.SaveToUserServer("UserInfo", ("Key1", "Value1"), ("Key2", 1));
+    }
+
+    internal void SellItem(int sellPrice, InventoryItemServer inventoryItemInfo)
+    {
+        userDataServer.Gold += sellPrice;
+        userDataServer.InventoryItems.Remove(inventoryItemInfo);
+        // 서버에 에서 삭제하자.
+    }
+
+    internal void ItemBuy(int buyPrice, InventoryItemServer newItem)
+    {
+        userDataServer.Gold -= buyPrice;
+        userDataServer.InventoryItems.Add(newItem);
+        //// 서버에에서 추가하자.
+        //FirestoreManager.SaveToUserServer()
     }
 }
 [System.Serializable]
@@ -84,6 +86,15 @@ public sealed class UserDataServer
     [FirestoreProperty]
     public List<InventoryItemServer> InventoryItems { get => inventoryItems; set => inventoryItems = value; }
 }
+
+//[System.Serializable]
+//public class InventoryItemServer
+//{
+//    public int itemID;
+//    public int count;
+//    public string getDate; //획득한 시간.
+
+//}
 
 [System.Serializable]
 [FirestoreData]
@@ -116,5 +127,10 @@ public sealed class InventoryItemServer
     public override int GetHashCode()
     {
         return UID;
+    }
+
+    internal ShopItemInfo GetShopItemInfo()
+    {
+        return ShopItemData.instance.shopItems.Find(x => x.itemID == ID);
     }
 }

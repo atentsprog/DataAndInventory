@@ -16,8 +16,8 @@ public class ItemInfoUI : MonoBehaviour
         instance = this;
     }
     public ShopItemInfo shopItemInfo;
-    public InventoryItemInfo inventoryItemInfo;
-    internal void ShowInventoryItem(InventoryItemInfo inventoryItemInfo)
+    public InventoryItemServer inventoryItemInfo;
+    internal void ShowInventoryItem(InventoryItemServer inventoryItemInfo)
     {
         this.inventoryItemInfo = inventoryItemInfo;
         shopBtn.SetActive(false);
@@ -30,9 +30,7 @@ public class ItemInfoUI : MonoBehaviour
     {
         print("ItemSell");
 
-        UserData.instance.Gold += shopItemInfo.sellPrice;
-
-        UserData.instance.inventoryItems.Remove(inventoryItemInfo);
+        UserData.instance.SellItem(shopItemInfo.sellPrice, inventoryItemInfo);
         InventoryUI.instance.RefreshUI();
     }
     internal void ShowShopItem(ShopItemInfo shopItemInfo)
@@ -76,13 +74,15 @@ public class ItemInfoUI : MonoBehaviour
     {
         print("ItemBuy");
 
-        UserData.instance.Gold -= shopItemInfo.buyPrice;
-        var newItem = new InventoryItemInfo();
-        newItem.itemID = shopItemInfo.itemID;
-        newItem.count = 1;
-        newItem.getDate = DateTime.Now.ToString();
-        UserData.instance.inventoryItems.Add(newItem);
+        var newItem = new InventoryItemServer();
+        newItem.ID = shopItemInfo.itemID;
+        newItem.Count = 1;
+        newItem.GetDate = DateTime.Now;
+
+        UserData.instance.ItemBuy(shopItemInfo.buyPrice, newItem);
         InventoryUI.instance.RefreshUI();
+
+
         //MoneyUI.instance.RefreshUI();
         //shopItemInfo
     }

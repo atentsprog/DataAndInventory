@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class InventoryItem : MonoBehaviour, IPointerClickHandler
 {
-    InventoryItemInfo inventoryItemInfo;
+    InventoryItemServer inventoryItemInfo;
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
@@ -19,7 +19,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    internal void Init(InventoryItemInfo item)
+    internal void Init(InventoryItemServer item)
     {
         inventoryItemInfo = item;
         ShopItemInfo shopItemInfo = item.GetShopItemInfo();

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class EquipItem : MonoBehaviour
 {
-    internal void SetItem(InventoryItemInfo inventoryItemInfo)
+    internal void SetItem(InventoryItemServer inventoryItemInfo)
     {
         // 아이콘 설정.
         ShopItemInfo shopItemInfo = inventoryItemInfo.GetShopItemInfo();
