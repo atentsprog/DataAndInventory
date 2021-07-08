@@ -20,7 +20,7 @@ public class FirestoreData : MonoBehaviour
 
     internal static void LoadFromUserCloud(string _collectionPath, Action<IDictionary<string, object>> ac = null)
     {
-        instance.firestoreManager.LoadFromUserCloud(_collectionPath, null, ac);
+        FirestoreManager.LoadFromUserCloud(_collectionPath, null, ac);
     }
 
     internal static void SaveToUserCloud(string _collectionPath, string subDocPath = null, Dictionary<string, object> data = null)
@@ -37,7 +37,7 @@ public class FirestoreData : MonoBehaviour
 
     internal static void LoadFromUserCloud(string _collectionPath, string subDocPath = null, Action<IDictionary<string, object>> ac = null)
     {
-        instance.firestoreManager.LoadFromUserCloud(_collectionPath, subDocPath, ac);
+        FirestoreManager.LoadFromUserCloud(_collectionPath, subDocPath, ac);
     }
 
     internal static void SaveToCloud(string docFullPath, Dictionary<string, object> data)

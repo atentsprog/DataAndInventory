@@ -17,6 +17,22 @@ public class UserData : MonoBehaviour
         instance = this;
     }
     public UserDataServer userDataServer;
+    public bool isLoadComplete = false;
+    private void Start()
+    {        
+        FirestoreManager.LoadFromUserCloud(UserInfo, (DocumentSnapshot ds ) =>
+        {
+            if(ds.TryGetValue("MyUserInfo", out userDataServer) == false)
+            {
+                print("서버에 UserData가 없다. 초기값을 설정하자.");
+                userDataServer.Gold = 1000;
+                userDataServer.Dia = 10;
+                userDataServer.InventoryItems = new List<InventoryItemServer>();
+            }
+
+            isLoadComplete = true;
+        });
+    }
 
 
     [ContextMenu("SaveUserData")]
@@ -43,14 +59,14 @@ public class UserData : MonoBehaviour
         //Dictionary<string, object> dic = new Dictionary<string, object>();
         //dic["MyUserInfo"] = userDataServer;
         //FirestoreData.SaveToUserCloud("UserInfo", dic);
-        FirestoreManager.SaveToUserServer("UserInfo", ("MyUserInfo", userDataServer));
+        FirestoreManager.SaveToUserServer(UserInfo, ("MyUserInfo", userDataServer));
     }
-
+    const string UserInfo = "UserInfo";
 
     [ContextMenu("변수 2개 저장")]
     private void Save2Variables()
     {
-        FirestoreManager.SaveToUserServer("UserInfo", ("Key1", "Value1"), ("Key2", 1));
+        FirestoreManager.SaveToUserServer(UserInfo, ("Key1", "Value1"), ("Key2", 1));
     }
 
     internal void SellItem(int sellPrice, InventoryItemServer inventoryItemInfo)
