@@ -15,10 +15,34 @@ public class UserData : MonoBehaviour
     }
     public UserDataServer userDataServer;
     public bool isLoadComplete = false;
+
+    List<Action> mainThreadFn = new List<Action>();
+    private void Update()
+    {
+        try
+        {
+            foreach (var item in mainThreadFn)
+                item();
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
+        finally
+        {
+            mainThreadFn.Clear();
+        }
+    }
     private void Start()
     {        
         FirestoreManager.LoadFromUserCloud(UserInfo, (DocumentSnapshot ds ) =>
         {
+            //mainThreadFn.Add(() =>
+            //{
+            //    userDataServer = null;
+            //    print(userDataServer.InventoryItems); // 100%에러 발생코드
+            //});
+
             if (ds.TryGetValue("MyUserInfo", out userDataServer) == false)
             {
                 //print("서버에 UserData가 없다. 초기값을 설정하자.");
@@ -83,8 +107,17 @@ public class UserData : MonoBehaviour
         userDataServer.Gold += sellPrice;
         userDataServer.InventoryItems.Remove(inventoryItemInfo);
         // 서버에 에서 삭제하자.
+        FirestoreManager.SaveToUserServer(UserInfo, ("MyUserInfo", userDataServer));
+    }
+    internal void ItemBuy(int buyPrice, InventoryItemServer newItem)
+    {
+        userDataServer.Gold -= buyPrice;
+        userDataServer.InventoryItems.Add(newItem);
+        //// 서버에에서 추가하자.
+        FirestoreManager.SaveToUserServer(UserInfo, ("MyUserInfo", userDataServer));
     }
 
+    #region 파이어 베이스 쿼리 테스트
     protected FirebaseFirestore db
     {
         get
@@ -93,7 +126,6 @@ public class UserData : MonoBehaviour
         }
     }
 
-    #region 파이어 베이스 쿼리 테스트
     [ContextMenu("삭제테스트")]
     void DeleteTemp()
     {
@@ -205,13 +237,6 @@ public class UserData : MonoBehaviour
     }
     #endregion 파이어 베이스 쿼리 테스트
 
-    internal void ItemBuy(int buyPrice, InventoryItemServer newItem)
-    {
-        userDataServer.Gold -= buyPrice;
-        userDataServer.InventoryItems.Add(newItem);
-        //// 서버에에서 추가하자.
-        FirestoreManager.SaveToUserServer(UserInfo, ("MyUserInfo", userDataServer));
-    }
 }
 [System.Serializable]
 [FirestoreData]
