@@ -92,7 +92,7 @@ public sealed class InventoryItemServer
     [FirestoreProperty] public int ID { get => iD; set => iD = value; }
     [FirestoreProperty] public int Count { get => count; set => count = value; }
     [FirestoreProperty] public int Enchant { get => enchant; set => enchant = value; }
-    [FirestoreProperty] public DateTime GetDate { get => DateTime.Parse(getDate); set => getDate = value.ToLongDateString(); }
+    [FirestoreProperty] public DateTime GetDate { get => DateTime.Parse(getDate); set => getDate = value.ToString(); }
 
     public override bool Equals(object obj)
     {
