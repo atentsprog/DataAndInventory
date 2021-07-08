@@ -19,8 +19,6 @@ public class UserData : MonoBehaviour
     {        
         FirestoreManager.LoadFromUserCloud(UserInfo, (DocumentSnapshot ds ) =>
         {
-            //userDataServer = ds.GetValue<UserDataServer>("MyUserInfo");
-
             if (ds.TryGetValue("MyUserInfo", out userDataServer) == false)
             {
                 //print("서버에 UserData가 없다. 초기값을 설정하자.");
@@ -95,19 +93,25 @@ public class UserData : MonoBehaviour
         }
     }
 
+    #region 파이어 베이스 쿼리 테스트
     [ContextMenu("삭제테스트")]
     void DeleteTemp()
     {
-        //DocumentReference cityRef = FirebaseFirestore.DefaultInstance.Document("UserInfo/" +
-        //    FirestoreManager.instance.userID
-        //    );
+        DocumentReference cityRef = FirebaseFirestore.DefaultInstance.Document("UserInfo/" +
+            FirestoreManager.instance.userID
+            );
 
-        //Dictionary<string, object> updates = new Dictionary<string, object>
-        //{
-        //    { "Key1", FieldValue.Delete }
-        //};
-        //cityRef.UpdateAsync(updates);
+        Dictionary<string, object> updates = new Dictionary<string, object>
+        {
+            { "Key1", FieldValue.Delete }
+        };
+        cityRef.UpdateAsync(updates);
+    }
 
+
+    [ContextMenu("임시 도시 데이터 추가")]
+    void InsertTextData()
+    {
         CollectionReference citiesRef = db.Collection("cities");
         citiesRef.Document("SF").SetAsync(new Dictionary<string, object>(){
     { "Name", "San Francisco" },
@@ -199,6 +203,7 @@ public class UserData : MonoBehaviour
             };
         });
     }
+    #endregion 파이어 베이스 쿼리 테스트
 
     internal void ItemBuy(int buyPrice, InventoryItemServer newItem)
     {
