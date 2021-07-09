@@ -16,43 +16,21 @@ public class UserData : MonoBehaviour
     public UserDataServer userDataServer;
     public bool isLoadComplete = false;
 
-    List<Action> mainThreadFn = new List<Action>();
-    private void Update()
-    {
-        try
-        {
-            foreach (var item in mainThreadFn)
-                item();
-        }
-        catch (Exception e)
-        {
-            Debug.LogError(e);
-        }
-        finally
-        {
-            mainThreadFn.Clear();
-        }
-    }
     private void Start()
-    {        
+    {    
         FirestoreManager.LoadFromUserCloud(UserInfo, (DocumentSnapshot ds ) =>
         {
-            //mainThreadFn.Add(() =>
-            //{
-            //    userDataServer = null;
-            //    print(userDataServer.InventoryItems); // 100%에러 발생코드
-            //});
-
             if (ds.TryGetValue("MyUserInfo", out userDataServer) == false)
             {
                 //print("서버에 UserData가 없다. 초기값을 설정하자.");
-                userDataServer = new UserDataServer();
+                //userDataServer = new UserDataServer();
                 userDataServer.Gold = 1000;
                 userDataServer.Dia = 10;
                 userDataServer.InventoryItems = new List<InventoryItemServer>();
-            }else
+            }
+            else
             {
-                foreach(var item in userDataServer.InventoryItems)
+                foreach (var item in userDataServer.InventoryItems)
                 {
                     item.GetDate = item.GetDate.AddHours(9);
                 }
@@ -250,13 +228,16 @@ public sealed class UserDataServer
 
     [FirestoreProperty] public int Gold { get { return gold; } set {
             gold = value;
-            //MoneyUI.instance?.RefreshUI(); <-- 이 로직 있으면 서버에서 값 가져올때 에러 발생한다
+            //if(MoneyUI.instance != null)
+            //    MoneyUI.instance.RefreshUI();// < --이 로직 있으면 서버에서 값 가져올때 에러 발생한다
         } }
 
     [FirestoreProperty] public int Dia { get => dia; set
         {
             dia = value;
-            //MoneyUI.instance?.RefreshUI();<-- 이 로직 있으면 서버에서 값 가져올때 에러 발생한다
+
+            //if (MoneyUI.instance != null)
+            //    MoneyUI.instance.RefreshUI();//< --이 로직 있으면 서버에서 값 가져올때 에러 발생한다
         }
     }
     [FirestoreProperty] public string Name { get => name; set => name = value; }
